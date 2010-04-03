@@ -1,12 +1,12 @@
 [submodule "csc-utils"]
 	path = csc-utils
-	url = git@github.com:commonsense/csc-utils.git
+	url = git://github.com/commonsense/csc-utils.git
 [submodule "divisi"]
 	path = divisi
-	url = git@github.com:commonsense/divisi.git
+	url = git://github.com/commonsense/divisi.git
 [submodule "divisi2"]
 	path = divisi2
-	url = git@github.com:commonsense/divisi2.git
+	url = git://github.com/commonsense/divisi2.git
 [submodule "conceptnet"]
 	path = conceptnet
-	url = git@github.com:commonsense/conceptnet.git
+	url = git://github.com/commonsense/conceptnet.git
