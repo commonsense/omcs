@@ -1,0 +1,17 @@
+# If you are listed as an OMCS developer on GitHub, you can set up your
+# environment by running the following command inside a virtualenv:
+#
+#   pip install -r devel_requirements.txt
+#
+# These packages will be installed in 'develop' mode into the src/ directory
+# of your Python virtual environment. They start out "not on any branch",
+# so be sure to run 'git checkout master' before editing them.
+numpy
+nose
+ipython
+-e svn+https://pysparse.svn.sourceforge.net/svnroot/pysparse/trunk#egg=pysparse
+-e git+ssh://git@github.com/commonsense/csc-utils.git#egg=csc-utils
+-e git+ssh://git@github.com/commonsense/conceptnet.git#egg=conceptnet
+-e git+ssh://git@github.com/commonsense/divisi.git#egg=divisi
+-e git+ssh://git@github.com/commonsense/divisi2.git#egg=divisi2
+

@@ -4,6 +4,9 @@ code is in submodules. To check out its contents, run::
   git submodule init
   git submodule update
 
+Alternatively, you can install the submodules into your Python environment 
+using ``pip``. See `requirements.txt` or `devel_requirements.txt`.
+
 Links to submodules
 ===================
 You can follow these links to get to the GitHub pages of the submodules.
