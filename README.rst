@@ -1,21 +1,5 @@
-About this repository
-=====================
-
-This is the top-level project for Open Mind Common Sense. All of the actual
-code is in submodules. To check out its contents, run::
-
-  git submodule init
-  git submodule update
-
-Alternatively, you can install the submodules into your Python environment 
-using ``pip``. See `requirements.txt` or `devel_requirements.txt`.
-
-Links to submodules
-===================
-You can follow these links to get to the GitHub pages of the submodules.
-
-About OMCS
-==========
+Open Mind Common Sense
+======================
 When people communicate, they rely on a large body of shared common sense
 knowledge in order to understand each other. Many barriers we face today in
 artificial intelligence and user interface design are due to the fact that
@@ -27,7 +11,12 @@ person knows.
 In 1999, we began a project at the MIT Media Lab to collect common sense from
 volunteers on the internet. Nearly ten years later our project has expanded to
 encompass many different areas, languages, and problems. Currently, our English
-dataset has over a million sentences from over 15,000 contributors.
+dataset has over a million sentences from over 15,000 contributors. We have
+expanded far beyond the original Web site, but we are still collecting
+knowledge at http://openmind.media.mit.edu.
+
+Subprojects
+-----------
 
 OMCS includes the following subprojects, among others:
 
@@ -40,4 +29,16 @@ OMCS includes the following subprojects, among others:
 .. _csc-utils: http://github.com/commonsense/csc-utils
 .. _divisi: http://github.com/commonsense/divisi
 .. _divisi2: http://github.com/commonsense/divisi2
+
+About this repository
+=====================
+
+This is the top-level project for Open Mind Common Sense. All of the actual
+code is in submodules. To check out its contents, run::
+
+  git submodule init
+  git submodule update
+
+Alternatively, you can install the submodules into your Python environment 
+using ``pip``. See `requirements.txt` or `devel_requirements.txt`.
 
