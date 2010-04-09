@@ -10,3 +10,6 @@
 [submodule "conceptnet"]
 	path = conceptnet
 	url = git://github.com/commonsense/conceptnet.git
+[submodule "openmind-commons"]
+	path = openmind-commons
+	url = git://github.com/rspeer/openmind-commons.git
