@@ -1,5 +1,8 @@
-Open Mind Common Sense
-======================
+`Open Mind Common Sense`_
+=========================
+
+.. _`Open Mind Common Sense`: http://csc.media.mit.edu
+
 When people communicate, they rely on a large body of shared common sense
 knowledge in order to understand each other. Many barriers we face today in
 artificial intelligence and user interface design are due to the fact that
