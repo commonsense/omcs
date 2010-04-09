@@ -13,3 +13,6 @@
 [submodule "openmind-commons"]
 	path = openmind-commons
 	url = git://github.com/rspeer/openmind-commons.git
+[submodule "LexiconLinking"]
+	path = LexiconLinking
+	url = git://github.com/commonsense/LexiconLinking.git

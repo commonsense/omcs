@@ -27,12 +27,14 @@ OMCS includes the following subprojects, among others:
 - divisi_: A library for learning from dimensionality reduction of a semantic network.
 - divisi2_: A new version of Divisi that integrates with NumPy and PySparse.
 - csc-utils_: Useful tools shared between our projects.
+- LexiconLinking_: A project to learn a lexicon of verb classes and the nouns that they relate to.
 - openmind-commons_: The code of our Web site for browsing and collecting knowledge.
 
 .. _conceptnet: http://github.com/commonsense/conceptnet
 .. _csc-utils: http://github.com/commonsense/csc-utils
 .. _divisi: http://github.com/commonsense/divisi
 .. _divisi2: http://github.com/commonsense/divisi2
+.. _LexiconLinking: http://github.com/commonsense/LexiconLinking
 .. _openmind-commons: http://github.com/rspeer/openmind-commons
 
 About this repository
