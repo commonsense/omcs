@@ -9,7 +9,7 @@
 numpy
 nose
 ipython
--e svn+https://pysparse.svn.sourceforge.net/svnroot/pysparse/trunk#egg=pysparse
+csc-pysparse
 -e git+http://github.com/commonsense/csc-utils.git#egg=csc-utils
 -e git+http://github.com/commonsense/conceptnet.git#egg=conceptnet
 -e git+http://github.com/commonsense/divisi.git#egg=divisi
