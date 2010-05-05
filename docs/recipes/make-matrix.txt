@@ -1,0 +1,105 @@
+The first step of using Divisi on your own data is often getting that
+data into a form that Divisi understands.
+
+Triples
+-------
+
+The best data to give Divisi is usually a bunch of triples: thing A
+has a link of type R to thing B, with confidence *value*. We can store
+a triple in Python just as a tuple, if we're careful about the
+ordering::
+
+    >>> triple = ('baseball', 'IsA', 'sport')
+    >>> value = 4.0
+
+We can group them together with another triple::
+
+    >>> weighted_triple = (triple, value)
+
+We might actually have a whole list of them::
+
+    >>> weighted_triples = [
+    ...   (('baseball', 'IsA', 'sport'), 3.6),
+    ...   (('yo-yo', 'IsA', 'toy'), 3.4),
+    ...   (('pen', 'IsA', 'write'), 3.1),
+    ...   (('dog', 'CapableOf', 'bark'), 3.1),
+    ...   (('polo', 'IsA', 'game'), 3.0),
+    ...   (('bottle', 'MadeOf', 'plastic'), 4.2),
+    ...   (('gold', 'IsA', 'metal'), 2.8),
+    ...   (('shark', 'AtLocation', 'any ocean'), 2.7),
+    ...   (('fish', 'AtLocation', 'water'), 2.6),
+    ...   (('computer', 'AtLocation', 'office'), 2.6),
+    ...   (('sleep', 'HasSubevent', 'dream'), 2.6),
+    ...   (('human', 'CapableOf', 'die only once'), 2.6),
+    ...   (('saw', 'IsA', 'tool'), 2.6),
+    ...   (('book', 'ReceivesAction', 'read'), 2.6),
+    ...   (('keyboard', 'PartOf', 'computer'), 2.5)]
+
+If you want to be able to blend your data with ConceptNet, you should
+make sure that the matrix you make is the same format is ConceptNet's
+matrix, otherwise Divisi won't have a clue that, e.g., ``sport`` and
+``sports`` have anything to do with each other. Here's some things to
+check:
+
+- All your concepts should be normalized. You can use
+  :class:`csc.nl.NLTools` to do that, as documented elsewhere.
+- Your relationships should overlap at least somewhat with
+  ConceptNet's, if possible. It's not necessary, but if you have any
+  concepts that ConceptNet doesn't know about, it might at least know
+  about some features that new concept has.
+- If you have multi-word concepts, it sometimes helps to put in
+  something for the single words also, if that makes sense. ConceptNet
+  does have a lot of phrases, but the chances you'll overlap exactly
+  with a ConceptNet phrase fall off quickly with longer phrases.
+- Your matrix should be in the same concept-by-feature format as
+  ConceptNet's.
+
+The last item is actually really easy: just use a
+:class:`csc.divisi.flavors.ConceptByFeatureMatrix`::
+
+    >>> from csc.divisi.flavors import ConceptByFeatureMatrix
+    >>> matrix = ConceptByFeatureMatrix.from_triples(weighted_triples)
+    >>> matrix.shape
+    (29, 30)
+    >>> sorted(matrix.items())[0]
+    (('any ocean', ('left', 'AtLocation', 'shark')), 2.7)
+
+You'll notice that the matrix contains a triple like ``('baseball',
+'IsA', 'sport')`` in two different ways: as a right feature about
+``baseball`` ``('right', 'IsA', 'sport'), and a left feature about
+``sport`` ``('left', 'IsA', 'baseball')``.
+
+Once you have the matrix, you can blend it with ConceptNet, run an
+SVD, etc.
+
+Plain Documents
+---------------
+
+(This is pseudocode for now.)
+
+If all you have is a collection of documents, you can extract a matrix
+of words by documents. First you'll create a Divisi matrix::
+
+    >>> from csc.divisi import make_sparse_labeled_tensor
+    >>> matrix = make_sparse_labeled_tensor(ndim=2)
+
+Then you'll fill in the words in your documents::
+
+    >>> from csc.nl import get_nl
+    >>> en_nl = get_nl('en')
+    >>> for document in documents:
+    ...     for word in document:
+    ...         if en_nl.is_stopword(word): continue
+    ...         normalized = en_nl.normalize(word)
+    ...         matrix[normalized, document] += 1
+
+Then you can apply tf-idf normalization (not to be confused with the
+normalization that applies to individual words) to keep large
+documents or very common terms from having undue influence::
+
+    >>> mat_normalized = mat.normalized('tfidf')
+
+Then you can run an SVD on it and all the rest of the Divisi stuff::
+
+    >>> svd = mat_normalized.svd(k=10)
+    >>> svd.summarize()

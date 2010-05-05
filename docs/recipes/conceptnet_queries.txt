@@ -1,0 +1,79 @@
+What is the highest-rated assertion in ConceptNet?
+
+    >>> from csc.conceptnet4.models import *
+    >>> en = Language.get('en')
+    >>> print Assertion.objects.filter(language=en)[0]
+    <Assertion: IsA(baseball, sport)[]>
+
+What relations connect "dog" and "bark"?
+
+    >>> Assertion.objects.filter(concept1__text='dog', concept2__text='bark',
+    ...   language=en)
+    [<Assertion: CapableOf(dog, bark)[]>, <Assertion: Desires(dog, bark)[]>,
+    <Assertion: HasSubevent(dog, bark)[]>]
+
+What are the different surface forms represented by the concept "run"?
+
+    >>> SurfaceForm.objects.filter(concept__text='run', language=en)
+    [<SurfaceForm: runs on for all of us>, <SurfaceForm: run!>,
+    <SurfaceForm: run>, <SurfaceForm: To run>, <SurfaceForm: running in>,
+    <SurfaceForm: to run>, <SurfaceForm: running on>, <SurfaceForm: you run>,
+    <SurfaceForm: run it>, <SurfaceForm: running into something>, <SurfaceForm:
+    a run>, <SurfaceForm: they are running>, <SurfaceForm: running with>,
+    <SurfaceForm: run for it>, <SurfaceForm: run too>, <SurfaceForm: run
+    there>, <SurfaceForm: Running>, <SurfaceForm: running>, <SurfaceForm: it
+    runs>]
+
+What RawAssertions connect "couch" and "sit"? This essentially
+combines the previous two queries. Instead of abstract relations as in the
+"dog/bark" example, we'll get the SurfaceForms and sentence frames that people
+used to express those relations.
+
+    >>> raw = RawAssertion.objects.filter(surface1__concept__text='couch',
+    ...       surface2__concept__text='sit', language=en)
+    >>> for r in raw:
+    ...     print r.frame, '/', r.surface1, '/', r.surface2
+    {1} is for {2} (en) / a couch / sitting
+    {1} can be used for {2} (en) / a couch / sitting
+    {1} is for {2} (en) / a couch / sitting on
+    {1} is for {2} (en) / couches / sitting on
+    {1} are for {2} (en) / couches / sitting on
+    {1} is used for {2} (en) / couch / sitting
+
+.. note::
+    Unfortunately, this query basically requires that you have a PostgreSQL
+    version of the database, because it will take an infeasibly long time on
+    SQLite. None of us have had the patience to wait for it to finish. Try
+    the next example instead.
+
+    SQLite databases are easy to set up and use, but there's
+    a reason PostgreSQL exists.
+
+On SQLite, you can still get the same effect by breaking up the query into
+smaller queries. We run a query that finds the appropriate Assertions, then
+use `rawassertion_set` to query what the associated RawAssertions are.
+
+    >>> raw = []
+    >>> assertions = Assertion.objects.filter(concept1__text='couch', concept2__text='sit', language=en)
+    >>> for a in assertions:
+    ...     raw.extend(a.rawassertion_set.all())
+    >>> for r in raw:
+    ...     print r.frame, '/', r.surface1, '/', r.surface2
+    {1} are for {2} (en) / couches / sitting on
+    {1} is a type of {2} (en) / couch / sitting thing
+    {1} can be used for {2} (en) / a couch / sitting
+    {1} is for {2} (en) / couches / sitting on
+    {1} is for {2} (en) / a couch / sitting on
+    {1} is for {2} (en) / a couch / sitting
+    {1} is used for {2} (en) / couch / sitting
+
+To see these RawAssertions expressed in sentence form:
+
+    >>> for r in raw: print r.nl_repr()
+    a couch is for sitting
+    a couch can be used for sitting
+    a couch is for sitting on
+    couches is for sitting on
+    couches are for sitting on
+    couch is used for sitting
+

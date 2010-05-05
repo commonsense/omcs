@@ -1,0 +1,19 @@
+
+
+-------------- This line and the following will be ignored --------------
+
+modified:
+  conceptnet/webapi.rst
+  conceptnet/webapi_client.rst
+  fabfile.py
+unknown:
+  .DS_Store
+  tensor.gz
+  _build/.DS_Store
+  _build/doctrees/
+  _build/html/
+  _build/latex/
+  _static/logo.png
+  conceptnet/_build/doctrees/
+  conceptnet/_build/html/
+  developers/techdisclosure.rst

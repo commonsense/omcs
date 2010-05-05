@@ -1,0 +1,204 @@
+We often describe the SVD as finding the most important axes in your
+data. But you can also make up your own axes. Let's make a "fruit"
+axis. Start by constructing AnalogySpace as usual::
+
+    >>> from csc.conceptnet4.analogyspace import conceptnet_2d_from_db
+    >>> cnet = conceptnet_2d_from_db('en')
+    >>> analogyspace = cnet.normalized().svd(k=50)
+
+In case we didn't show you before, you can examine what concepts and
+features are at the extremes of an axis::
+
+    >>> analogyspace.summarize_axis(0)
+    Axis 0 (sigma=6.13873)
+     -0.06475 break leg                       -0.03879 HasProperty/bad              
+     -0.06024 fearful                         -0.01445 person\HasProperty           
+     -0.05883 break arm                       -0.01091 IsA/emotion                  
+     -0.05846 computer virus                  -0.01060 IsA/disease                  
+     -0.05834 paper cut                       -0.01027 HasProperty/painful          
+     -0.05804 computer crash                  -0.00916 CapableOf/make person upset  
+     -0.05726 crash car                       -0.00809 disease\IsA                  
+     -0.05623 abuse                           -0.00706 Causes/death                 
+     -0.05517 car accident                    -0.00680 fall\HasSubevent             
+     -0.05357 bad feelings                    -0.00671 punish\HasSubevent           
+
+     +0.05369 leisure time                    +0.01164 AtLocation/home              
+     +0.05557 know time                       +0.01338 AtLocation/house             
+     +0.05558 admiration                      +0.01536 HasProperty/fun              
+     +0.05677 other people                    +0.01558 HasProperty/important        
+     +0.05820 good memory                     +0.01739 UsedFor/fun                  
+     +0.05874 compliment                      +0.02201 something\AtLocation         
+     +0.05928 good eyesight                   +0.02654 HasProperty/good             
+     +0.05971 hapiness                        +0.02935 person\AtLocation            
+     +0.06325 enough sleep                    +0.06110 person\CapableOf             
+     +0.06470 own house                       +0.97765 person\Desires
+
+Let's start with one example fruit::
+
+    >>> orange = analogyspace.weighted_u['orange',:]
+    >>> orange = analogyspace.weighted_u_vec('orange')
+
+(those do exactly the same thing). In a way, we've just made the
+"orange" axis--we can see how orange-y things are::
+
+    >>> analogyspace.u_dotproducts_with(orange).top_items(10)
+    [(u'cheese', 0.075850185003255993), (u'butter', 0.075707574006567177), (u'lasagna', 0.070813408269797914), (u'egg', 0.06349058690918892), (u'salad', 0.06227346977647296), (u'corn', 0.060597043876093146), (u'steak', 0.058329548888902287), (u'carrot', 0.05738446467506466), (u'tomato', 0.056921807725107423), (u'fruit', 0.056021282044948974)]
+
+You can also use ``summarize_axis``, which does the same math but
+formats it nicer::
+
+    >>> analogyspace.summarize_axis(orange)
+    Ad-hoc axis (magnitude=0.19538)
+     -0.03348 new caledonia                   -0.03245 IsA/country                  
+     -0.02846 break leg                       -0.01803 AtLocation/library           
+     -0.02499 break arm                       -0.01617 IsA/person                   
+     -0.02494 paper cut                       -0.01452 dog\CapableOf                
+     -0.02475 computer crash                  -0.01443 IsA/mammal                   
+     -0.02464 computer virus                  -0.01293 IsA/animal                   
+     -0.02439 crash car                       -0.01287 AtLocation/cabinet           
+     -0.02386 abuse                           -0.01259 human\AtLocation             
+     -0.02362 fearful                         -0.01239 IsA/verb                     
+     -0.02324 car accident                    -0.01229 IsA/state                    
+
+     +0.05602 fruit                           +0.05850 AtLocation/market            
+     +0.05692 tomato                          +0.06474 AtLocation/store             
+     +0.05738 carrot                          +0.07594 IsA/vegetable                
+     +0.05833 steak                           +0.09709 AtLocation/fridge            
+     +0.06060 corn                            +0.09889 AtLocation/grocery store     
+     +0.06227 salad                           +0.13561 UsedFor/eat                  
+     +0.06349 egg                             +0.13574 AtLocation/refrigerator      
+     +0.07081 lasagna                         +0.14725 AtLocation/supermarket       
+     +0.07571 butter                          +0.20624 IsA/food                     
+     +0.07585 cheese                          +0.42109 person\Desires           
+
+But hey, do you really mean that "cheese", "egg", and "steak" are some
+of the most similar things to "orange"? The features tell the
+story--all those other things share other qualities with "orange": the
+fact that they're things that people want, such as
+food. (Incidentally::
+
+    >>> person_desires = analogyspace.weighted_v_vec(('left', 'Desires', 'person')).hat()
+    >>> food = analogyspace.weighted_u_vec('food').hat()
+    >>> person_desires * food
+    0.075101282630907082
+
+Why is this not 1.0? In a short essay, describe the mathematical,
+sociological, and philosophical explanations for this result. Due next
+month.)
+
+If I hadn't primed you to be thinking about fruits, you may have also
+thought of some of these things. (You might have also thought of "red"
+and "yellow", but ConceptNet knows more about food than colors.) One
+of the tasks that people are good at is: given a few items like
+"orange", "tomato", and "peach", come up with other examples. This is
+called making an "*ad-hoc category*", and AnalogySpace can do it
+too. All we have to do is add the vectors::
+
+    >>> tomato = analogyspace.weighted_u_vec('tomato')
+    >>> peach = analogyspace.weighted_u_vec('peach')
+    >>> some_fruits = orange + tomato + peach
+    >>> analogyspace.summarize_axis(some_fruits)
+    Ad-hoc axis (magnitude=0.78805)
+     -0.16575 new caledonia                   -0.06915 IsA/country                  
+     -0.10988 human memory                    -0.05670 AtLocation/kitchen           
+     -0.10546 washer                          -0.04502 AtLocation/drawer            
+     -0.08711 speedo                          -0.03931 AtLocation/hotel             
+     -0.08038 menu                            -0.03464 AtLocation/library           
+     -0.07405 gerbil                          -0.03373 InheritsFrom/new caledonia   
+     -0.06796 minor planet                    -0.03373 new caledonia\InheritsFrom   
+     -0.06521 software                        -0.02562 AtLocation/closet            
+     -0.06355 low blood pressure              -0.02508 AtLocation/bar               
+     -0.04429 corner cupboard                 -0.02334 IsA/state                    
+
+     +0.27468 steak                           +0.31934 AtLocation/market            
+     +0.27558 spinach                         +0.32755 AtLocation/store             
+     +0.28067 lettuce                         +0.37007 IsA/vegetable                
+     +0.28418 salad                           +0.42580 UsedFor/eat                  
+     +0.28587 egg                             +0.42977 person\Desires               
+     +0.28928 tomato                          +0.51577 AtLocation/fridge            
+     +0.31404 carrot                          +0.56557 AtLocation/grocery store     
+     +0.32970 cheese                          +0.74332 AtLocation/refrigerator      
+     +0.33249 lasagna                         +0.84475 AtLocation/supermarket       
+     +0.35009 butter                          +0.93256 IsA/food
+
+Hm, we still get "butter" and "lasagna". How about we make that a
+second axis::
+
+    >>> butter = analogyspace.weighted_u_vec('butter')
+    >>> buttery, fruity = some_fruits.components_wrt(butter)
+    >>> analogyspace.summarize_axis(fruity)
+    Ad-hoc axis (magnitude=0.50647)
+     -0.15717 fork                            -0.58648 AtLocation/kitchen           
+     -0.14876 silverware                      -0.34404 AtLocation/restaurant        
+     -0.12046 cup                             -0.28010 AtLocation/house             
+     -0.12018 corner cupboard                 -0.18830 AtLocation/home              
+     -0.11648 saucepan                        -0.18672 AtLocation/cupboard          
+     -0.11287 dish                            -0.16915 AtLocation/table             
+     -0.10722 icebox                          -0.15603 AtLocation/cabinet           
+     -0.10660 chopstick                       -0.14550 UsedFor/eat                  
+     -0.10635 restaurant storage area         -0.09952 IsA/country                  
+     -0.10272 knife                           -0.09808 UsedFor/drink                
+
+     +0.08908 pickle                          +0.12473 IsA/plant                    
+     +0.09330 pea                             +0.13303 AtLocation/fridge            
+     +0.09516 freeze food                     +0.13414 IsA/fruit                    
+     +0.09764 cherry                          +0.13645 HasProperty/green            
+     +0.09860 pineapple                       +0.14322 AtLocation/grocery store     
+     +0.11080 spinach                         +0.16541 IsA/vegetable                
+     +0.11425 carrot                          +0.19627 AtLocation/refrigerator      
+     +0.11530 cabbage                         +0.25291 IsA/food                     
+     +0.11951 lettuce                         +0.27445 AtLocation/supermarket       
+     +0.12474 tomato                          +0.40027 person\Desires
+
+That function ``components_wrt`` means "components with respect to",
+and splits a vector into the components that are parallel and
+perpendicular to the other vector. In this case, we just used that to
+make an axis, ``fruity``, that's the part of ``orange + tomato +
+peach`` that's not in the ``butter`` direction. Let's normalize those
+vectors so we get a real orthonormal basis of the buttery fruity
+subspace of AnalogySpace::
+
+    >>> buttery, fruity = buttery.hat(), fruity.hat()
+
+The name "buttery" is a bit misleading -- it actually means the
+qualities that fruits share with other foods like butter. Fruity,
+likewise, isn't the absolute fruitiness axis, but rather the qualities
+that differentiate fruit from other foods like butter.
+
+You can probably tweak this construction to make, say, a real
+fruity-ness scale. But on the other hand, we caution against
+interpreting any of these AnalogySpace vectors too deeply.
+
+In General
+----------
+
+You can use the ``weighted_slice_sum`` method to deal with when you
+want to make an ad-hoc category of a bunch of things::
+
+    >>> some_fruits = analogyspace.weighted_u.weighted_slice_sum(
+    ...     0, ['orange', 'banana', 'apple'], constant_weight=1.0)
+    >>> some_fruits = analogyspace.weighted_u.weighted_slice_sum(
+    ...     0, [('orange', 1.0),
+    ...         ('banana', 1.0),
+    ...         ('apple', 1.0)])
+
+(those do the same thing.)
+
+Remember that the concepts need to be in a normalized form, using the
+natural language tools.
+
+We've so far been mostly talking only about relating concepts with
+concepts. You can also relate concepts back and forth with
+features. Instead of *u*, you'll use *v*::
+
+    >>> analogyspace.v_dotproducts_with(orange).top_items(10)
+    [(('left', u'Desires', u'person'), 0.42109016206787431),
+     (('right', u'IsA', u'food'), 0.20623706379426551),
+     (('right', u'AtLocation', u'supermarket'), 0.14725261176352022),
+     (('right', u'AtLocation', u'refrigerator'), 0.1357382373545731),
+     (('right', u'UsedFor', u'eat'), 0.13560523653124967),
+     (('right', u'AtLocation', u'grocery store'), 0.098892021486091441),
+     (('right', u'AtLocation', u'fridge'), 0.09708831985424822),
+     (('right', u'IsA', u'vegetable'), 0.07593952726879713),
+     (('right', u'AtLocation', u'store'), 0.064742205228863745),
+     (('right', u'AtLocation', u'market'), 0.058503802903265789)]

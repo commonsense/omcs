@@ -1,0 +1,50 @@
+Sometimes, it's useful to create an AnalogySpace from streaming, real time data.  To do this, we make an AnalogySpace with a different algorithm called Candid Covariance-Free Principal Component Analysis (CCIPCA).  CCIPCA over ConceptNet creates a space that is equivalent to running AnalogySpace.
+
+Let's use CCIPCA to create an AnalogySpace.  First we should get a list of the
+concepts in Conceptnet. ::
+
+    >>> from csc.conceptnet4.analogyspace import conceptnet_2d_from_db
+    >>> cnet = conceptnet_2d_from_db('en', cutoff=10).normalize(mode=1)
+
+Here, we'll introduce the concept of generators. <a
+href="http://www.ibm.com/developerworks/library/l-pycon.html">A generator is a
+function that remembers the point in the function body where it last returned
+</a>.  Let's create a generator for all the assertions in ConceptNet. ::
+
+    >>> def cnet_generator():
+    ...     concepts = list(cnet.label_list(0))[::-1]
+    ...     for concept in concepts:
+    ...         yield cnet[concept, :].normalized()
+    ...
+    >>> cstream = cnet_generator()
+
+Next, we should set up a CCIPCA learning process. ::
+
+    >>> from csc.divisi.forgetful_ccipca import CCIPCA
+    >>> ccipca = CCIPCA(k=10, amnesia=3.0, remembrance=10000.0, vector_size=10000)
+
+CCIPCA has a few more parameters than AnalogySpace.  Here *k* means the same thing as it does for AnalogySpace --- the number of singular values you'd like in your resulting space.  A CCIPCA algorithm that is watching a string of data should forget some of the things it has seen if they never appear again in the stream, much in the way people forget words they don't hear very often. *Amnesia* makes new things count for more than other things. A low *Rememberance* makes old things count for less than other things. The *vector_size* is the number of things you want to have in the algorithm's memory at the same time.
+
+Now let's iterate over the ConceptNet concepts to make a CCIPCA space. ::
+
+    >>> for assertion in cstream:
+    ...     iter = ccipca.iteration(assertion, True)
+    ...     reconstructed = ccipca.reconstruct(iter)
+
+
+Here, the CCIPCA object's *iteration* method take a single concept's vector  and a boolean variable signifying if the model should learn from the vector. In this example, the input vector is made up of the concept's features.  When the vector reaches a size greater than *vector_size*, the least recently used features are thrown out or ''forgotten''.
+
+This variable should be set as true for training and most application-based uses and False for more formal testing.   Setting learning to False should be used when you just want to see the result, rather than change anything. *Iteration* returns eigenvector coefficients for the input vector.
+
+The *reconstruct* method takes eigenvector coefficients and returns the corresponding linear combination of those eigenvectors.  This is like examining the reconstructed AnalogySpace matrix.
+
+The *smooth* method calls both iteration and reconstruct.
+
+In some cases, you may want to see the matrix that CCIPCA has built. This is
+stored as a NumPy matrix in `ccipca._v`. Its rows, starting from row 1, are
+the principal components, and its columns are the labels you used in the input
+vectors. In this example, the labels are the features that various concepts
+had.
+
+To determine which column number goes with which label, look at `ccipca._labels`.
+

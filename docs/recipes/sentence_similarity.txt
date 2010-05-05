@@ -1,0 +1,92 @@
+A straightforward way to use Divisi and ConceptNet together is to determine the similarity between two sentences, based on the concepts they contain. Here's how we will do this:
+
+#. Use ConceptNet extract the concepts from the sentences.
+#. Convert them to vectors in AnalogySpace.
+#. Add the vectors to get a vector for the whole sentence.
+#. Normalize both vectors. Otherwise a really long sentence would 
+    be represented as a vector with a high dot product with all other vectors, and thus would be similar to anything else.
+#. Take the dot product to find the similarity between the sentence vector.
+
+A whirlwind tour::
+
+    # Get the natural language processing tools for English:
+    >>> from csc.nl import get_nl
+    >>> en_nl = get_nl('en')
+    
+    # This constructs a multidimentional analogyspace from conceptnet:
+    >>> from csc.conceptnet4.analogyspace import conceptnet_2d_from_db
+    >>> cnet = conceptnet_2d_from_db('en')
+    >>> analogyspace = cnet.svd(k=50)
+    <A printout of a bunch of data>
+    
+    # With this, we can represent a concept as a vector.
+    >>> vector_from_word = lambda word: analogyspace.weighted_u[word,:]
+    
+    >>> add_vectors = lambda v1,v2 : v1.weighted_add(v2,1)
+    >>> first = en_nl.extract_concepts('Mary had a little lamb.',max_words=2,check_conceptnet=True)
+    >>> print first
+    [u'mary',u'little',u'lamb']
+    # these are the concepts that conceptnet recognizes within the sentence.
+
+    >>> second = en_nl.extract_concepts('Lions and Tigers and Bears, Oh My!',max_words=2,check_conceptnet=True)
+    >>> print second
+    [u'lion',u'tiger',u'bear',u'oh']
+
+    # Turn every word into a vector in analogyspace,
+    # then find the sum of those vectors to get a vector for the whole sentence
+    >>> firstvector = reduce(add_vectors,map(vector_from_word,first))
+    >>> secondvector = reduce(add_vectors,map(vector_from_word,second))
+    
+    # and now we compute the similarity by taking the dot product 
+    # of the normalized vectors.
+    >>> similarity = firstvector.hat().dot(secondvector.hat())
+    >>> print similarity
+    0.185909025912
+
+This is rather dense, so lets step through it with some actual function definitions ::
+
+    from csc.nl import get_nl
+    en_nl = get_nl('en')
+    # We can now do natural language processing in English.
+
+    def recognized_words(sentence):
+        """Find all of the words in the sentence that are also concepts in analogyspace"""
+        return en_nl.extract_concepts(sentence,max_words = 2,check_conceptnet = True))
+
+We now have extracted the concepts
+and now need to build analogyspace so that 
+they can be modeled as vectors. ::
+
+    from csc.conceptnet4.analogyspace import conceptnet_2d_from_db
+    cnet = conceptnet_2d_from_db('en')
+    analogyspace = cnet.svd(k=50)
+
+    def word2vector(word):
+        """finds the vector in analogyspace for the concept"""
+        return analogyspace.weighted_u[word,:]
+
+    def add_vectors(vec1,vec2):
+        return vec1.weighted_add(vec2,1)
+
+    def sentence2vector(sentence):
+        """
+        Convert every concept in the sentence to a vector and then
+        sum all of the vectors to return a vector for the sentence.
+        """
+        concept_vectors = [word2vector(word) for word in recognized_words(sentence)] 
+        vector_sum = concept_vectors[0]
+        for concept in concept_vectors[1:]:
+           vector_sum = add_vectors(vector_sum,concept) 
+        return vector_sum 
+
+After modeling sentences as vectors, all that is left is to
+take the dot product to find the similarity. ::
+
+    def sentence_similarity(sentence1,sentence2):#
+        """
+        find the vectors for two sentences, normalize them,
+        and find the dot product to represent similarity
+        """
+        vector1 , vector2 = [sentence2vector(sentence) for sentence in (sentence1,sentence2)]
+        normalized1 , normalized2 = [vector.hat() for vector in (vector1,vector2)]
+        return normalized1.dot(normalized2)

@@ -1,0 +1,42 @@
+Here's how you blend another resource with ConceptNet.  When you create a
+blend object, you've taken an outside resource, formatted as a matrix, and
+created an AnalogySpace jointly with that matrix and ConceptNet.
+
+First, we load ConceptNet.
+
+    >>> from csc.conceptnet4.analogyspace import conceptnet_2d_from_db
+    >>> cnet = conceptnet_2d_from_db('en')
+
+The we reload a preconstructed matrix representation of our outside resource
+- in this case `Affective WordNet`_.
+
+.. _`Affective WordNet`: http://conceptnet.media.mit.edu/dist/affectiveWNmatrix.pickle
+
+    >>> from csc.util.persist import get_picklecached_thing
+    >>> affectwn_raw = get_picklecached_thing('affectiveWNmatrix.pickle')
+    >>> affectwn = affectwn_raw.normalized()
+
+Making a blend is simple.  Pass the blend constructor a list of the matrices
+you want to blend. This will run a very small SVD of each matrix to determine
+how much weight to put on the values of each.
+
+    >>> from csc.divisi.blend import Blend
+    >>> theblend = Blend([affectwn, cnet])
+    SOLVING THE [A^TA] EIGENPROBLEM
+    NO. OF ROWS               =   2009
+    NO. OF COLUMNS            =   1764
+    NO. OF NON-ZERO VALUES    =  23896
+    ...
+
+Afterward, you may run an svd on your blend.
+
+    >>> blendsvd = theblend.svd()
+
+And use the result as with AnalogySpace, except now it encompasses information
+from the blended resource as well.
+
+    >>> pos = blendsvd.u['positive-emotion', :].hat()
+    >>> joy = blendsvd.u['joy', :].hat()
+    >>> pos * joy
+    >>> 0.96821571993905131
+

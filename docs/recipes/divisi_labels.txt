@@ -1,0 +1,21 @@
+Here is an example of using a LabeledView to store labeled data::
+
+    >>> from csc.divisi.labeled_view import make_sparse_labeled_tensor
+    >>> t = make_sparse_labeled_tensor(ndim=2)
+    >>> t['grass', 'green'] = 2
+    >>> t['grass', 'red'] = -2
+    >>> t['apple', 'red'] = 3
+    >>> t
+    <LabeledView of <DictTensor shape: (2, 2); 3 items>, keys like: ('grass', 'green')>
+
+Now let's see what we got by removing layers of abstraction::
+
+    >>> t.unwrap()
+    <DictTensor shape: (2, 2); 3 items>
+    
+    >>> t.unwrap().unwrap()
+    {0: {0: 2, 1: -2}, 1: {1: 3}}
+    
+    >>> t.label_lists()
+    [OrderedSet(['grass', 'apple']), OrderedSet(['green', 'red'])]
+

@@ -1,0 +1,39 @@
+In this recipe, we'll use ConceptNet's natural language tools (and basically
+nothing else) to rephrase a sentence into various forms.
+
+Load the English natural language tools, an instance of
+:class:`csc.nl.NLTools` that you can get using :meth:`get_nl`.
+
+>>> from csc.nl import get_nl
+>>> en_nl = get_nl('en')
+
+We're going to do everything using the :meth:`lemma_split` and
+:meth:`lemma_combine` methods.
+
+:meth:`lemma_split` will separate text into a *normalized form*, containing the
+base forms of its content words, and a *residue*, describing the remaining text
+that surrounds those content words. These two examples will illustrate:
+
+>>> en_nl.lemma_split("you can sit on a couch")
+(u'sit couch', u'you can 1 on a 2')
+
+>>> en_nl.lemma_split("you are sitting on a couch")
+(u'sit couch', u'you are 1ing on a 2')
+
+Notice that in these two examples, the normalized forms are the same but the
+residues are different.
+
+Using :meth:`lemma_combine`, we can put these back together:
+
+>>> en.nl.lemma_combine(u'sit couch', u'you are 1ing on a 2')
+u'you are sitting on a couch'
+
+By changing the residue while leaving the normalized form the same, we can
+rephrase text.
+
+>>> en.nl.lemma_combine(u'sit couch', u'1 on the 2')
+u'sit on the couch'
+
+>>> en.nl.lemma_combine(u'sit couch', u'a 2 is something for 1ing on')
+u'a couch is something for sitting on'
+

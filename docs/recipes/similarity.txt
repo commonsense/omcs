@@ -1,0 +1,161 @@
+One useful thing to do with AnalogySpace is to compute the similarity of
+different concepts and features.
+
+First we create a matrix of ConceptNet by loading it from the database. This
+assumes you have the Python code for ConceptNet 4 installed.
+
+    >>> from csc.conceptnet4.analogyspace import conceptnet_2d_from_db
+    >>> cnet = conceptnet_2d_from_db('en')
+    >>> cnet
+    <LabeledView of <DictTensor shape: (13559, 125285); 463276 items>, keys
+    like: (u'baseball', ('right', u'IsA', u'sport'))>
+
+Then we create AnalogySpace by running a SVD on ConceptNet. We should specify a
+number of *axes*, or principal components, that will be used to define a space
+containing all the concepts and features in ConceptNet. Here we set k=50.
+
+Running this will output some nitty-gritty details in all caps, which you can
+safely ignore. (We're wrapping a Lanczos SVD algorithm that was apparently
+written before there were lowercase letters.)
+
+    >>> analogyspace = cnet.svd(k=50)
+    SOLVING THE [A^TA] EIGENPROBLEM
+    NO. OF ROWS               = 125285
+    NO. OF COLUMNS            =  13559
+    NO. OF NON-ZERO VALUES    = 463276
+    MATRIX DENSITY            =   0.03%
+    ...
+
+AnalogySpace is expressed using three factors, called u, v, and sigma.  You'll
+be working mostly with u and v.  u is a matrix of the concepts in AnalogySpace
+versus the axes, and v is a matrix of the features versus the axes.  You can
+see them below. The axes are simply represented by numbers from 0 to 49, which
+is why a location in the u matrix is expressed like (u'baseball', 0).
+
+We are looking for *weighted* versions that take sigma into account, to make
+similarity as correct as possible.
+
+    >>> analogyspace.weighted_u 
+    <LabeledView of <DenseTensor shape: (13559, 50)>, keys like: (u'baseball', 0)>
+    >>> analogyspace.weighted_v
+    <LabeledView of <DenseTensor shape: (125285, 50)>, keys like: (('right',
+    u'IsA', u'sport'), 0)>
+
+You can create a vector representing a row in u, which is a concept in
+AnalogySpace. (Using `:` as the second index means to take the entire row.)
+
+    >>> cow = analogyspace.weighted_u['cow',:]
+    >>> cow
+    <LabeledView of <DenseTensor shape: (50,)>, keys like: (0,)>
+
+To see the actual values in the vector:
+
+    >>> cow.values()
+    [0.013892029698854192,
+     -0.017800227982122333,
+     -0.0084530174387361448,
+     ...
+    ]
+
+If we create many of these vectors...
+
+    >>> horse = analogyspace.weighted_u['horse',:]
+    >>> pencil = analogyspace.weighted_u['pencil',:]
+
+we can take the dot product of two vectors to test their similarity.
+
+    >>> cow.dot(horse)
+    0.068418769278489167
+   
+But what scale is this on? We really want a measure of similarity that is affected only by the angle between "cow" and "horse" in AnalogySpace, not their magnitudes, which will put the similarity on a scale from -1.0 to 1.0. To do this, we can turn "cow" and "horse" into unit vectors with `.hat()`.
+
+    >>> cow.hat().dot(horse.hat())
+    0.88958857691685023
+
+Cows and horses are quite similar according to AnalogySpace.
+
+The * operator is a shorthand for `.dot()`.
+
+    >>> cow.hat() * horse.hat()
+    0.88958857691685023
+    >>> cow.hat() * pencil.hat()
+    -0.0069139647165505575
+
+Cows and pencils are not very similar.
+
+What are the most similar things to pencils? We can find out by making a vector
+containing its dot products with *every* concept in the u matrix:
+
+    >>> pencil_like = analogyspace.u_dotproducts_with(pencil)
+    >>> pencil_like
+    <LabeledView of <DenseTensor shape: (13559,)>, keys like: (u'baseball',)>
+    >>> pencil_like.top_items()
+    [(u'computer', 1.2202528641389825), (u'book', 1.215170152903311),
+    (u'paper', 1.1891308539695427), (u'pen', 0.69290768233550337), (u'pencil',
+    0.52037765001335479), (u'chair', 0.40438769349078618), (u'desk',
+    0.38914275787095587), (u'stapler', 0.37656131323591657), (u'telephone',
+    0.36938823750426064), (u'something', 0.36815695629688239)]
+
+This process doesn't take magnitudes into account, so it's biased toward
+concepts that ConceptNet knows a lot about, such as people, computers, and
+"something". Here, instead, is our suggested process for finding the best
+similarities.
+
+We're going to normalize ConceptNet -- essentially taking the .hat() of every
+row -- *before* running the SVD. The vectors after the SVD will have magnitudes
+of at most 1, but usually less, based on how confident the SVD is that it has
+represented them accurately.
+
+    >>> cnet_norm = conceptnet_2d_from_db('en').normalized()
+    >>> analogyspace2 = cnet_norm.svd()
+    SOLVING THE [A^TA] EIGENPROBLEM
+    ...
+    >>> pencil2 = analogyspace2.weighted_u['pencil', :]
+    >>> pencil_like = analogyspace2.u_dotproducts_with(pencil2)
+    >>> pencil_like.top_items()
+    [(u'paper clip', 0.06122153040349379), (u'pencil', 0.060906084191319432),
+    (u'stapler', 0.059021552842731737), (u'pencil sharpener',
+    0.057003725048276763), (u'pen', 0.05676665192843354), (u'notebook',
+    0.052569850563327546), (u'eraser', 0.051168441923181852), (u'notepad',
+    0.048891119195177801), (u'paper punch', 0.046300460782385505), (u'scissor',
+    0.045279807250761875)]
+
+Let's look at v.  We need to understand what features look like in ConceptNet:
+
+    >>> analogyspace.weighted_v.label_list(0)[:10]
+    [('right', u'IsA', u'sport'),
+     ('left', u'IsA', u'baseball'),
+     ('right', u'IsA', u'toy'),
+     ('left', u'IsA', u'yo-yo'),
+     ('right', u'IsA', u'write'),
+     ('left', u'IsA', u'pen'),
+     ('right', u'CapableOf', u'bark'),
+     ('left', u'CapableOf', u'dog'),
+     ('right', u'IsA', u'game'),
+     ('left', u'IsA', u'polo')]
+
+`'right'` features form the right side of an assertion, such as "is a sport", while `'left'` features form the left side of an assertion, such as "a pen is a".
+
+Now we can make vectors from v which represent features:
+
+    >>> isSport = analogyspace.weighted_v[('right', u'IsA', u'sport'),:]
+    >>> isMetal = analogyspace.weighted_v[('right', u'MadeOf', u'metal'),:]
+    >>> fit = analogyspace.weighted_v[('right', u'UsedFor', u'fit'),:]
+    >>> fit
+    <LabeledView of <DenseTensor shape: (50,)>, keys like: (0,)>
+
+We can use dot products to compare these as well.
+
+    >>> fit.hat() * isSport.hat()
+    0.148864235859517    
+    >>> fit.hat() * isMetal.hat()
+    0.023851155065313375
+
+Finally, we can use dot products to compare concepts and features:
+
+    >>> cow.hat() * isMetal.hat()
+    -0.028690725336294111
+    >>> toaster = analogyspace.weighted_u['toaster',:]
+    >>> toaster.hat() * isMetal.hat()
+    0.16164614783300948
+
