@@ -49,3 +49,6 @@ code is in submodules. To check out its contents, run::
 Alternatively, you can install the submodules into your Python environment 
 using ``pip``. See `requirements.txt` or `devel_requirements.txt`.
 
+We highly recommend that if you make changes to the code of one module, you first check out that module separately, or you may accidentally lose work. (If you're afraid you lost work already, don't worry; there are usually ways to recover.) At least make a branch for your own work first::
+
+  git checkout -b universal_semantics
