@@ -44,12 +44,24 @@ or in a virtual environment::
 
 or on Windows::
 
-  python C:\Python25\Scripts\pip install divisi
+  C:\Python26\Scripts\easy_install divisi
 
-However, easy_installing on Windows is likely to fail unless you have the MinGW32_ C
-compiler.
+But it's probably not that easy on Windows unless Python already knows how to
+use your C compiler. See below for one way to do that.
 
-.. _MinGW32: http://www.mingw.org/wiki/HOWTO_Install_the_MinGW_GCC_Compiler_Suite
+Setting up GCC on Windows
+.........................
+
+The easiest way to get GCC on Windows is to download and install the MinGW_
+suite. 
+
+.. _MinGW: http://www.mingw.org/wiki/HOWTO_Install_the_MinGW_GCC_Compiler_Suite
+
+After you do this, you need to tell Python to use it. Create a text file called
+`C:\Python26\Lib\distutils\distutils.cfg` containing the following::
+
+    [build]
+    compiler=mingw32
 
 Windows .exe installer
 ......................

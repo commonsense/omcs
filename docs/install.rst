@@ -13,7 +13,9 @@ Before you can install any of the CSC packages, you will need to have:
 
 - `Python`_ 2.5 or 2.6 with its development headers
 - The Python ``distribute`` package, which gives you the convenient ``pip``
-  command for installing packages (http://pypi.python.org/pypi/distribute)
+  command for installing packages (http://pypi.python.org/pypi/distribute).
+  An older alternative which may work for you is ``setuptools`` and
+  ``easy_install``.
 
 .. _`Python`: http://python.org
 
@@ -91,6 +93,9 @@ this a try. Good luck.
     python distribute_setup.py
 
 .. _`distribute installer`: http://nightly.ziade.org/distribute_setup.py
+
+In the following sections, if "pip install" doesn't work, try replacing it with
+"easy_install".
 
 Next Steps
 ----------
