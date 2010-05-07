@@ -3,99 +3,221 @@ Setting up a CSC development environment
 
 These are Rob and Ken's suggestions for how to set up your development
 environment to work on ConceptNet, Divisi, and related
-projects. Everyone has different preferences, so your mileage may
-vary.
+projects.
 
-Step 0: Prerequisites
----------------------
-Follow the :doc:`/install` before these instructions.
+Everyone has different preferences for how to develop code and
+differently-configured systems, so no single set of directions can possibly
+cover everything. So that's why we hope to cover a lot of common cases with
+these "choose your own adventure"-esque directions.
 
-Step 1: Get a virtual environment
----------------------------------
-``virtualenv`` is a system that sets up an isolated Python environment
-for you to develop in. This is nice. It means when something breaks,
-you don't have to try to pick the pieces out of your systemwide Python
-configuration; you can just make a fresh virtual environment. It also
-means less ``sudo``.
-
-Because you got `pip` from the :doc:`/install`, all you need to type is::
-  
-  pip install virtualenv
-
-Now set up a virtual environment. This command will create one called "csc"
-under your home directory::
-
-  virtualenv ~/csc
-
-To activate the environment, you run this::
-
-  source ~/csc/bin/activate
-
-You may want to add this to your .bashrc so that it runs by default when you
-start a shell. You can get back to your normal Python by typing ``deactivate``.
-
-If you want to give yourself some nice shell commands for working with virtual
-environments, try out virtualenvwrapper:
-http://www.doughellmann.com/projects/virtualenvwrapper/
-
-Optional: IPython
-.................
-Python development is painful without IPython. You should make sure you have
-it running *inside* your virtual environment -- a system-wide IPython isn't
-going to be useful here. 
-
-With your virtual environment activated, type `pip install ipython`.
-
-Step 2: Set up Bazaar and Launchpad
------------------------------------
-
-Directions for installing and setting up Bazaar and Launchpad are in
-the :doc:`bzr-howto` section.
-
-Make sure you register a public key with Launchpad, and then let the command
-line client know about your Launchpad username::
-
-  bzr launchpad-login myusername
-
-
-Step 3: Get the packages
-------------------------
-
-If you were merely using the packages, you'd ``pip install`` them,
-but since you might want to change the code, branch them from Bazaar
-instead. Run this inside your ``~/csc`` directory::
-
-  bzr co lp:csc-utils
-  bzr co lp:conceptnet
-  bzr co lp:divisi
-  bzr co lp:~commonsense/cscweb/documentation/
-
-(I suggest branching ConceptNet and Divisi because you'll more often
-make changes that break things there, but checkouts of ``csc-utils``
-and this documentation should be fine.)
-
-There are some other codebases you won't be messing with, and which you will
-really want to be installed::
-
-  pip install django
-  pip install psycopg2
-  pip install PyStemmer
-
-Step 4: Install
----------------
-For each package in (``csc-utils``, ``conceptnet``, and ``divisi``)::
-
-  cd ~/csc/$package
-  python setup.py develop
-
-Step 5: Configure the database
+Setting up your GitHub account
 ------------------------------
+Wait, why are we doing this first? Because one of the later steps works better
+if you're already added to the GitHub projects. This would probably be easiest
+for one of the existing developers to do.
+
+If you already have a GitHub account, skip to the bottom of this section.
+
+- Go to http://github.com and create an account.
+- Follow the instructions at http://github.com/guides/providing-your-ssh-key, to associate your account with an SSH public key on your computer.
+- Ask an existing OMCS developer to add you to the core CSC projects
+  (currently these are `conceptnet`, `divisi`, `divisi2`, and `csc-utils`).
+
+For the next step:
+
+- If you use Linux, go to :ref:`linux`.
+- If you use Mac OS X, go to :ref:`mac`.
+- If you use Windows, go to :ref:`windows`.
+
+.. _linux:
+
+Setting up Linux packages
+-------------------------
+
+On Ubuntu, you can get the required packages with this command::
+
+  $ sudo apt-get install python-dev python-setuptools python-pip python-virtualenv build-essential git 
+
+On Fedora, you can get the required packages by using::
+
+  $ sudo yum install python-devel python-setuptools python-pip python-virtualenv gcc make git
+
+That's all for the platform-specific stuff. Go on to :ref:`cross_platform`.
+
+.. _windows:
+
+Setting up Python on Windows
+----------------------------
+
+- If you already have Python 2.6 and can run it from the command prompt, go to :ref:`have_windows_python`.
+
+First, you need to download Python 2.6 from http://python.org, and install it.
+
+After that, you will need to set it up so that you can use Python from the
+command line, by setting the PATH environment variable. Instructions for doing
+this are at:
+
+http://docs.python.org/using/windows.html#excursus-setting-environment-variables
+
+You should be able to open a command prompt and type "Python", and get an
+interactive Python prompt. (Type `exit()` to exit it.) Once you can do this, go
+on to the next step.
+
+.. _have_windows_python:
+
+Getting Distribute/Pip for Windows
+----------------------------------
+Distribute is a system for managing Python packages. Pip is a useful
+command-line program for downloading and installing packages.
+
+Distribute comes with Pip pre-installed, so to get both of them, just type
+these two commands at the command line:
+
+    curl -O http://python-distribute.org/distribute_setup.py
+    python distribute_setup.py
+
+Your Python is now ready to go. In the next step, you'll set up the MinGW
+version of `gcc`, so you can compile the C code we use. But if you already
+program in C on Windows using Cygwin, you probably would prefer to follow the
+:ref:`cygwin_directions`.
+
+Setting up MinGW and msysgit
+----------------------------
+Download and install MinGW from http://www.mingw.org/. This gives you a
+slightly better command line, and a minimal installation of `gcc`.
+
+You'll also need Git, so download and install msysgit (the official Windows version of Git) from http://code.google.com/p/msysgit/.
+
+Now you're ready to skip to the section on :ref:`install_packages`.
+
+Alternate Cygwin directions
+---------------------------
+
+Use Cygwin Setup to install `gcc`, `make`, and `git`.
+
+Using the Cygwin shell, you can follow the directions in the next section and
+just leave off the "sudo". I think. I've never tried using virtualenv on
+Cygwin. You can also just skip the section and run without virtual
+environments.
+
+.. _cross_platform:
+
+Setting up a virtual environment (Linux or Mac)
+-----------------------------------------------
+``virtualenv`` is a system that sets up an isolated copy of Python
+for you to develop in.
+
+This is optional, but it's nice. It means when something breaks, you don't have
+to try to pick the pieces out of your systemwide Python configuration; you can
+just make a fresh virtual environment. It also means that these are the last
+few Python commands you'll have to run with "sudo" or as root.
+
+Use `pip` to get virtualenv and a nice command-line wrapper for it::
+
+    sudo pip install virtualenv virtualenvwrapper
+
+Make a directory for Python environments::
+
+    mkdir ~/py
+
+Now set up your shell to work with virtualenvwrapper. (On a Mac, change `.bashrc` to `.bash_profile`.) ::
+
+    echo "export PIP_RESPECT_VIRTUALENV=true" >> ~/.bashrc
+    echo "export WORKON_HOME=$HOME/py" >> ~/.bashrc
+    echo "source /usr/local/bin/virtualenvwrapper_bashrc" >> ~/.bashrc
+
+Open a new terminal window and type::
+
+    mkvirtualenv omcs
+
+You should now be using a copy of Python that is installed into your
+`~/py/omcs` directory. In the future, you activate this version of Python with
+this command::
+
+    workon omcs
+
+Now go on to the next section.
+
+.. _install_packages:
+
+Installing CSC packages and their dependencies
+----------------------------------------------
+
+You've got Git, so check out our top-level repository. Type this command
+anywhere besides the 'py' directory::
+
+    git clone git@github.com:commonsense/omcs.git
+
+If that doesn't work, you're not yet listed as a developer. You'll have to
+poke a developer, jump to :ref:`repo_admin` to take matters into your own
+hands, or use the alternate read-only URL::
+
+    git clone git://github.com/commonsense/omcs.git
+
+You get an `omcs/` directory with some stuff in it, some documentation, and
+some empty subprojects. Subprojects are an advanced Git feature and you don't
+need to use them yet -- we'll be getting the code through Pip, anyway.
+
+Inside the `omcs/` directory, run::
+
+    pip install -r devel_requirements.txt
+
+(Use `requirements.txt` instead of `devel_requirements.txt` if you don't have
+read-write access. We can add write access later.)
+
+This is what everything else has been building up to. It does the following
+things:
+
+- It makes sure that numpy is installed.
+- It installs other useful Python tools: `ipython`, `nose`, `fabric`, and `sphinx`.
+- It checks out the Git repositories for our core projects, compiles the C code
+for Divisi, and installs them all in development mode.
+
+Now you have editable code for our projects in some directory inside your
+Python environment -- most likely `~/py/omcs/src`. The directories under it are
+Git repositories. One thing, though: they're in this stupid default mode called
+"headless mode".
+
+If you want to be able to commit changes to one of these projects, get out of
+headless mode and onto the "master" branch, by typing this command in the
+project's directory::
+
+    git checkout master
+
+Now go on to the next step.
+
+Configure the ConceptNet database
+---------------------------------
+
 You'll probably want to run ConceptNet on a PostgreSQL database, as described
 in :doc:`/conceptnet/install`. If you're in the Media Lab, you'll probably want
 to run on *the* PostgreSQL database, so ask someone for what to put in your
-db_config.py.
+`db_config.py`.
 
-Step 6: Test
+Finally:
+
+Test stuff
+----------
+Start up your ipython. Try importing ``csc.conceptnet.models`` and
+``csc.divisi2``. Run some of the code in the "Examples" sections. If it works,
+you're all set.
+
+
+Reading list
 ------------
-Start up your ipython. Try importing ``csc.conceptnet.models`` and ``csc.divisi``. Run some of the code in the "Examples" section. If it works, you're all set.
+If you are unfamiliar with the details of Git, you should take half an hour or
+so to read the first three chapters of `Pro Git`_.
+
+_`Pro Git`: http://progit.org/book/
+
+Python packaging is way more stupid and complicated than it should be, and
+changing rapidly as people try to deal with that fact. But understanding how to
+do it right -- or at least a reasonable approximation of right -- can help make
+your contributions more usable.
+
+To that end, we'd like you to skim through the `Hitchhiker's Guide to Python Packaging`_.
+
+_`Hitchhiker's Guide to Python Packaging`: http://guide-python-distribute.org
+
+==============================================================
 

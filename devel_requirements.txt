@@ -11,9 +11,9 @@ nose
 ipython
 fabric
 sphinx
+csc-pysparse
 -e git+ssh://git@github.com/commonsense/csc-utils.git#egg=csc-utils
 -e git+ssh://git@github.com/commonsense/conceptnet.git#egg=conceptnet
 -e git+ssh://git@github.com/commonsense/divisi.git#egg=divisi
--e git+ssh://git@github.com/rspeer/csc-pysparse.git#egg=csc-pysparse
 -e git+ssh://git@github.com/commonsense/divisi2.git#egg=divisi2
 
