@@ -33,9 +33,8 @@ For the next step:
 
 .. _linux:
 
-Setting up Linux packages
--------------------------
-
+Linux setup
+-----------
 On Ubuntu, you can get the required packages with this command::
 
   $ sudo apt-get install python-dev python-setuptools python-pip python-virtualenv build-essential git 
@@ -48,18 +47,16 @@ That's all for the platform-specific stuff. Go on to :ref:`cross_platform`.
 
 .. _mac:
 
-Setting up Mac OS
------------------
+Mac OS setup
+------------
 If you have OS 10.6, you almost have everything you need. You can use the
 built-in `easy_install` to get `pip`::
 
     sudo easy_install pip
 
-Then go onto :ref:`_have_mac_pip`.
+Then go onto :ref:`have_mac_pip`.
 
-Mac OS 10.5
-...........
-The version of Python that is pre-installed in OS 10.5 is insufficient. You'll
+On the other hand, if you're on Mac OS 10.5, the version of Python that is pre-installed in OS 10.5 is insufficient. You'll
 first need to download and install Python 2.6 from http://python.org. 
 
 Then you need to download Distribute. You can set it up by typing these
@@ -73,22 +70,28 @@ Once this runs, go on to the next section.
 .. _have_mac_pip:
 
 Installing other Mac tools
---------------------------
+..........................
 
-You can get a NumPy 1.4 installer for the Mac at https://sourceforge.net/projects/numpy/files/. Download and install it, then go on to the next section.
+You can get a NumPy 1.4 installer for the Mac at https://sourceforge.net/projects/numpy/files/.
 
-
+Once you download and install it, you can skip to the section called
+:ref:`cross_platform`.
 
 .. _windows:
 
-Setting up Python on Windows
-----------------------------
+Windows setup
+-------------
+If you already have Python 2.6 and can run it from the command prompt, skip to :ref:`have_windows_python`. Otherwise, continue to the next section.
 
-- If you already have Python 2.6 and can run it from the command prompt, skip to :ref:`have_windows_python`.
-- First, you need to download Python 2.6 from http://python.org, and install it.
-- After that, you will need to set it up so that you can use Python from the
-  command line, by setting the PATH environment variable. Instructions for doing
-  this are at: http://docs.python.org/using/windows.html#excursus-setting-environment-variables
+Setting up Python on Windows
+............................
+
+First, you need to download Python 2.6 from http://python.org, and install it.
+
+After that, you will need to set it up so that you can use Python from the
+command line, by setting the PATH environment variable. Instructions for doing
+this are at:
+http://docs.python.org/using/windows.html#excursus-setting-environment-variables
 
 If you've done all this, you should be able to open a command prompt and type
 `python`, and get an interactive Python prompt. Once you can do this, go on to
@@ -97,14 +100,14 @@ the next step.
 .. _have_windows_python:
 
 Getting NumPy for Windows
--------------------------
+.........................
 Download and install NumPy, from https://sourceforge.net/projects/numpy/files/. Choose the latest Python 2.6 "superpack" version.
 
 Type ``import numpy`` at the Python
 prompt and make sure you don't get an error, and go on to the next step.
 
 Getting Distribute/Pip for Windows
-----------------------------------
+..................................
 Distribute is a system for managing Python packages. Pip is a useful
 command-line program for downloading and installing packages.
 
@@ -117,7 +120,7 @@ program in C on Windows using Cygwin, you probably would prefer to follow the
 :ref:`cygwin_directions`.
 
 Setting up MinGW and msysgit
-----------------------------
+............................
 Download and install MinGW from http://www.mingw.org/. This gives you a
 slightly better command line, and a minimal installation of `gcc`.
 
@@ -134,19 +137,22 @@ You'll also need Git, so download and install msysgit (the official Windows vers
 Now you're ready to jump to the section on :ref:`install_packages`.
 
 Alternate Cygwin directions
----------------------------
+...........................
 
 Use Cygwin Setup to install `gcc`, `make`, and `git`.
 
-Using the Cygwin shell, you can follow the directions in the next section and
-just leave off the "sudo". I think. I've never tried using virtualenv on
-Cygwin. You can also just skip the next section and run without virtual
-environments.
+Using the Cygwin shell, you can follow the directions in :ref:`cross_platform`
+and just leave off the "sudo". I think. I've never tried using virtualenv on
+Cygwin. You can also just skip to :ref:`install_packages` and run without
+virtual environments.
+
+Cross-platform directions
+-------------------------
 
 .. _cross_platform:
 
-Setting up a virtual environment (Linux or Mac)
------------------------------------------------
+Setting up a virtual environment
+................................
 ``virtualenv`` is a system that sets up an isolated copy of Python
 for you to develop in.
 
@@ -184,7 +190,7 @@ Now go on to the next section.
 .. _install_packages:
 
 Installing CSC packages and their dependencies
-----------------------------------------------
+..............................................
 
 You've got Git, so check out our top-level repository. Type this command
 anywhere besides the 'py' directory::
@@ -229,7 +235,7 @@ project's directory::
 Now go on to the next step.
 
 Configure the ConceptNet database
----------------------------------
+.................................
 
 You'll probably want to run ConceptNet on a PostgreSQL database, as described
 in :doc:`/conceptnet/install`. If you're in the Media Lab, you'll probably want
@@ -239,7 +245,7 @@ to run on *the* PostgreSQL database, so ask someone for what to put in your
 Finally:
 
 Test stuff
-----------
+..........
 Start up your ipython. Try importing ``csc.conceptnet.models`` and
 ``csc.divisi2``. Run some of the code in the "Examples" sections. If it works,
 you're all set.

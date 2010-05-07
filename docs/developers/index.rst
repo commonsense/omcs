@@ -9,7 +9,6 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   bzr-howto
    setup
    karma
    contributions

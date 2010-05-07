@@ -13,6 +13,7 @@ Commonsense Computing Documentation
    install
    conceptnet/index
    divisi/index
+   divisi2/index
    developers/index
    luminoso/index
 

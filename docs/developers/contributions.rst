@@ -5,16 +5,23 @@ Open Mind is an open source project. If you see something you can improve in
 the code, we encourage you to share your improvement with us so we can include
 it in future versions.
 
-Pushing code to Launchpad
+GitHub branches and forks
 -------------------------
 
-As a developer, you have presumably checked out our code from Launchpad. The
-first step in sharing your improvements is to push your branch back to
-Launchpad, under your own name. So for example, if your Launchpad username is
-jbloggs, and you have an improvement to Divisi that makes SVDs faster, you
-could push it to Launchpad with::
-  
-   bzr push lp:~jbloggs/divisi/make-svds-faster
+As a developer, you have presumably checked out our code from GitHub. GitHub
+makes it very easy to "fork" a project -- that's not as disruptive as it
+sounds, it's just hosting a copy of the project under your own GitHub account.
+In the fork, you can make whatever changes you want, you can pull our later
+updates, and we can pull your updates when we want to include them in the main
+repository.
+
+Instructions on forking are at: http://help.github.com/forking/
+
+
+If you work closely with us, you may have access to the main repositories under
+"commonsense/". In that case, you don't have to make a complete fork; you can
+just make a new branch where you make your changes.
+http://progit.org/book/ch3-0.html is a very helpful guide to branching.
 
 Letting Commonsense Computing redistribute your code
 ----------------------------------------------------
@@ -42,7 +49,7 @@ just get to redistribute your code. You will be credited for your contributions
 in the source code. 
 
 How does this compare to other open source projects?
-----------------------------------------------------
+....................................................
 Our terms for contributors are most similar to the Qt_ project. Their
 contributors have to sign a `contribution agreement`_ very similar to this one.
 

@@ -26,15 +26,13 @@ package. Writing docstrings for functions you use, or for new functions you
 have written, is an easy form of coding karma. These docstrings can easily be
 included in more complete documentation later.
 
-The documentation repository
-----------------------------
+The documentation directory
+---------------------------
 
-We have a documentation repository. In fact, you're *reading* the output of the
-documentation repository right now.
-
-You can check it out with `bzr checkout lp:~commonsense/cscweb/documentation`.
-A plain checkout is probably fine -- there shouldn't be any reason to have
-different branches of documentation.
+What you're reading right now comes from a directory called "docs" under the
+"omcs" Git repository. You can edit it in its checked-out version, or you can
+make changes through the Web at
+http://github.com/commonsense/omcs/tree/master/docs/.
 
 The documentation repository contains a couple of things:
 
@@ -49,11 +47,8 @@ Writing "recipes"
 If you have an example of accomplishing something useful with our tools, show
 it to other people! 
 
-The `recipes/` directory of the documentation repository is the place to put
+The `recipes/` directory of the documentation is the place to put
 these. They can even be included as pages of the Sphinx documentation later.
-
-Rob's getting this started by including `health_blend.py` in the recipes
-directory.
 
 Writing tests
 -------------
@@ -142,11 +137,11 @@ of the docstrings.
 
 If you have access to the docs server, and you have Fabric installed
 (``easy_install fabric``), you can update the
-documentation on the Web site (http://csc.media.mit.edu/doc/) by running::
+documentation on the Web site (http://csc.media.mit.edu/docs/) by running::
 
-  bzr commit
+  git commit -a
   fab test
-  fab update # if the test works
+  fab update    # if the test works
 
 "fab update" might crash with an error about setting attributes on files, but
 if it does, it already got far enough.
