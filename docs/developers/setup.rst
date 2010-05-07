@@ -10,6 +10,8 @@ differently-configured systems, so no single set of directions can possibly
 cover everything. So that's why we hope to cover a lot of common cases with
 these "choose your own adventure"-esque directions.
 
+Here's where we start:
+
 Setting up your GitHub account
 ------------------------------
 Wait, why are we doing this first? Because one of the later steps works better
@@ -44,37 +46,70 @@ On Fedora, you can get the required packages by using::
 
 That's all for the platform-specific stuff. Go on to :ref:`cross_platform`.
 
+.. _mac:
+
+Setting up Mac OS
+-----------------
+If you have OS 10.6, you almost have everything you need. You can use the
+built-in `easy_install` to get `pip`::
+
+    sudo easy_install pip
+
+Then go onto :ref:`_have_mac_pip`.
+
+Mac OS 10.5
+...........
+The version of Python that is pre-installed in OS 10.5 is insufficient. You'll
+first need to download and install Python 2.6 from http://python.org. 
+
+Then you need to download Distribute. You can set it up by typing these
+two commands in your Terminal::
+
+    curl -O http://python-distribute.org/distribute_setup.py
+    python distribute_setup.py
+
+Once this runs, go on to the next section.
+
+.. _have_mac_pip:
+
+Installing other Mac tools
+--------------------------
+
+You can get a NumPy 1.4 installer for the Mac at https://sourceforge.net/projects/numpy/files/. Download and install it, then go on to the next section.
+
+
+
 .. _windows:
 
 Setting up Python on Windows
 ----------------------------
 
-- If you already have Python 2.6 and can run it from the command prompt, go to :ref:`have_windows_python`.
+- If you already have Python 2.6 and can run it from the command prompt, skip to :ref:`have_windows_python`.
+- First, you need to download Python 2.6 from http://python.org, and install it.
+- After that, you will need to set it up so that you can use Python from the
+  command line, by setting the PATH environment variable. Instructions for doing
+  this are at: http://docs.python.org/using/windows.html#excursus-setting-environment-variables
 
-First, you need to download Python 2.6 from http://python.org, and install it.
-
-After that, you will need to set it up so that you can use Python from the
-command line, by setting the PATH environment variable. Instructions for doing
-this are at:
-
-http://docs.python.org/using/windows.html#excursus-setting-environment-variables
-
-You should be able to open a command prompt and type "Python", and get an
-interactive Python prompt. (Type `exit()` to exit it.) Once you can do this, go
-on to the next step.
+If you've done all this, you should be able to open a command prompt and type
+`python`, and get an interactive Python prompt. Once you can do this, go on to
+the next step.
 
 .. _have_windows_python:
+
+Getting NumPy for Windows
+-------------------------
+Download and install NumPy, from https://sourceforge.net/projects/numpy/files/. Choose the latest Python 2.6 "superpack" version.
+
+Type ``import numpy`` at the Python
+prompt and make sure you don't get an error, and go on to the next step.
 
 Getting Distribute/Pip for Windows
 ----------------------------------
 Distribute is a system for managing Python packages. Pip is a useful
 command-line program for downloading and installing packages.
 
-Distribute comes with Pip pre-installed, so to get both of them, just type
-these two commands at the command line:
-
-    curl -O http://python-distribute.org/distribute_setup.py
-    python distribute_setup.py
+Distribute comes with Pip pre-installed, so to get both of them, download
+http://python-distribute.org/distribute_setup.py and run it.
 
 Your Python is now ready to go. In the next step, you'll set up the MinGW
 version of `gcc`, so you can compile the C code we use. But if you already
@@ -86,9 +121,17 @@ Setting up MinGW and msysgit
 Download and install MinGW from http://www.mingw.org/. This gives you a
 slightly better command line, and a minimal installation of `gcc`.
 
+You need to tell Python to use MinGW to compile things. You can do this by
+creating (or updating) the file named
+`C:\Python26\Lib\distutils\distutils.cfg`. It should contain the following
+two lines::
+    
+    [build]
+    compiler=mingw32
+
 You'll also need Git, so download and install msysgit (the official Windows version of Git) from http://code.google.com/p/msysgit/.
 
-Now you're ready to skip to the section on :ref:`install_packages`.
+Now you're ready to jump to the section on :ref:`install_packages`.
 
 Alternate Cygwin directions
 ---------------------------
@@ -97,7 +140,7 @@ Use Cygwin Setup to install `gcc`, `make`, and `git`.
 
 Using the Cygwin shell, you can follow the directions in the next section and
 just leave off the "sudo". I think. I've never tried using virtualenv on
-Cygwin. You can also just skip the section and run without virtual
+Cygwin. You can also just skip the next section and run without virtual
 environments.
 
 .. _cross_platform:
@@ -148,9 +191,8 @@ anywhere besides the 'py' directory::
 
     git clone git@github.com:commonsense/omcs.git
 
-If that doesn't work, you're not yet listed as a developer. You'll have to
-poke a developer, jump to :ref:`repo_admin` to take matters into your own
-hands, or use the alternate read-only URL::
+If that doesn't work, you're not yet listed as a developer. You'll have to poke
+a developer or use the alternate read-only URL::
 
     git clone git://github.com/commonsense/omcs.git
 
@@ -202,7 +244,6 @@ Start up your ipython. Try importing ``csc.conceptnet.models`` and
 ``csc.divisi2``. Run some of the code in the "Examples" sections. If it works,
 you're all set.
 
-
 Reading list
 ------------
 If you are unfamiliar with the details of Git, you should take half an hour or
@@ -215,9 +256,9 @@ changing rapidly as people try to deal with that fact. But understanding how to
 do it right -- or at least a reasonable approximation of right -- can help make
 your contributions more usable.
 
-To that end, we'd like you to skim through the `Hitchhiker's Guide to Python Packaging`_.
+To that end, we'd like you to skim through the `Hitchhiker's Guide to Python
+Packaging`_ sometime. You don't have to do it right away, but it could be
+relevant when you're contributing code.
 
 _`Hitchhiker's Guide to Python Packaging`: http://guide-python-distribute.org
-
-==============================================================
 
