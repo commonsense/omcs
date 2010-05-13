@@ -136,6 +136,8 @@ You'll also need Git, so download and install msysgit (the official Windows vers
 
 Now you're ready to jump to the section on :ref:`install_packages`.
 
+.. _cygwin_directions:
+
 Alternate Cygwin directions
 ...........................
 
@@ -219,7 +221,7 @@ things:
 - It makes sure that numpy is installed.
 - It installs other useful Python tools: `ipython`, `nose`, `fabric`, and `sphinx`.
 - It checks out the Git repositories for our core projects, compiles the C code
-for Divisi, and installs them all in development mode.
+  for Divisi, and installs them all in development mode.
 
 Now you have editable code for our projects in some directory inside your
 Python environment -- most likely `~/py/omcs/src`. The directories under it are
@@ -255,7 +257,7 @@ Reading list
 If you are unfamiliar with the details of Git, you should take half an hour or
 so to read the first three chapters of `Pro Git`_.
 
-_`Pro Git`: http://progit.org/book/
+.. _`Pro Git`: http://progit.org/book/
 
 Python packaging is way more stupid and complicated than it should be, and
 changing rapidly as people try to deal with that fact. But understanding how to
@@ -266,5 +268,5 @@ To that end, we'd like you to skim through the `Hitchhiker's Guide to Python
 Packaging`_ sometime. You don't have to do it right away, but it could be
 relevant when you're contributing code.
 
-_`Hitchhiker's Guide to Python Packaging`: http://guide-python-distribute.org
+.. _`Hitchhiker's Guide to Python Packaging`: http://guide-python-distribute.org
 

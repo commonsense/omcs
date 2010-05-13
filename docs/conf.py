@@ -26,7 +26,8 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosummary',
+'sphinx.ext.intersphinx', 'sphinx.ext.jsmath', 'sphinx.ext.doctest']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -193,7 +194,11 @@ latex_use_modindex = False
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'http://docs.python.org/dev': None}
-autoclass_content = "both"
+jsmath_path = 'jsMath/easy/load.js'
+doctest_test_doctest_blocks = ''
+autoclass_content = "init"
+default_role = "literal"
+add_module_names = False
 
 
 # Theme
@@ -206,7 +211,7 @@ html_theme_options = {
     'linkcolor': '#005a8c',
     'headtextcolor': '#135',
     'sidebarlinkcolor': '#def',
-    'codebgcolor': '#eee',
+    'codebgcolor': '#e7f0f7',
     'headfont': 'Georgia, serif',
     'bodyfont': 'Lucida Grande, Lucida Sans, sans-serif',
 }

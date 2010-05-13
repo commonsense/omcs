@@ -1,51 +1,37 @@
-from fabric.api import run, sudo, env, local
-print "WARNING: The fabric script has not been updated to use git."
+from __future__ import with_statement
+from fabric.api import *
+from fabric.contrib.project import rsync_project
 
-config = env
-config.hosts = ['anemone.media.mit.edu']
-config.build_output = '/srv/csc/documentation/_build/html/'
-config.target = '/srv/csc/cscweb/static/docs/'
-
-virtualenv = 'source /srv/csc/bin/activate'
+env.hosts = ['anemone.media.mit.edu']
 
 def test():
-    local('make html')
-    
-def run_list(lst):
-    run(' && '.join(lst))
+    build_docs()
 
-def local_bzr_commit():
-    env.warn_only = True
-    local('bzr commit', capture=False)
-    env.warn_only = False
+def deploy():
+    push()
+    update_server()
 
-def bzr_update(project, develop=True):
-    lst = ['cd "/srv/csc/%s"' % project,
-           'bzr up']
-    if develop: lst += [virtualenv, 'python setup.py develop']
-    run_list(lst)
+def update_server():
+    # later, make this assemble things on the server side
+    # this requires understanding how it's set up, though
+    rsync_project(local_dir='_build/html/', remote_dir='/srv/csc/cscweb/static/docs/')
 
-def update_deps():
-    for project in ['csc-utils', 'conceptnet', 'divisi']:
-        bzr_update(project, develop=True)
+def push():
+    build_docs()
+    local('git pull origin master', capture=False)
+    local('git push origin master', capture=False)
 
-def update_src():
-    bzr_update('documentation', develop=False)
+def git_dance():
+    local('git commit -av', capture=False)
+    local('git pull origin master', capture=False)
+    local('git push origin master', capture=False)
 
-def build():
-    run_list([virtualenv,
-              'cd /srv/csc/documentation',
-              'make html'])
+def metapush():
+    with cd('~/mmp/omcs'):
+        local('git pull')
+    with cd('~/mmp'):
+        git_dance()
 
-def clean():
-    run_list([virtualenv,
-              'cd /srv/csc/documentation',
-              'make clean'])
-def publish():
-    local_bzr_commit()
-    update_deps()
-    update_src()
-    build()
-    run('rsync -rlpgoDvP --delete "%s" "%s"' % (env.build_output, env.target))
+def build_docs():
+    local('make html', capture=False)
 
-def update(): publish()
