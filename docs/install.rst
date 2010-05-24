@@ -40,6 +40,20 @@ On Fedora, you can get the required packages by using:
 Mac OS X
 --------
 
+OS 10.6 (Snow Leopard)
+......................
+Snow Leopard comes with a reasonable Python 2.6 and most of the tools we need.
+Just open up a Terminal window and type::
+
+  sudo easy_install pip
+
+If you want to be able to install modules that involve C code, such as Divisi,
+you will need Xcode. You can install it from the DVD that OS X came on.
+
+You will need to do a custom install of Xcode, so that you can install an
+optional component called the "10.4u SDK", or else you might run into strange
+error messages later.
+
 OS 10.3 through 10.5
 ....................
 
@@ -56,20 +70,6 @@ terminal::
 
 If you want to be able to install modules that involve C code, such as Divisi,
 you will need Xcode. You can install it from the DVD that OS X came on.
-
-OS 10.6 (Snow Leopard)
-......................
-Your OS comes with a reasonable Python 2.6 and most of the tools we need.
-Just open up a Terminal window and type::
-
-  sudo easy_install pip
-
-If you want to be able to install modules that involve C code, such as Divisi,
-you will need Xcode. You can install it from the DVD that OS X came on.
-
-You will need to do a custom install of Xcode, so that you can install an
-optional component called the "10.4u SDK", or else you might run into strange
-error messages later.
 
 Windows
 -------
