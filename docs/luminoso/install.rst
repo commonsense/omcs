@@ -26,8 +26,8 @@ Installing from scratch
 On a Linux system, you only need to install the packages we depend on and then
 checkout and install Luminoso. Here's what you do on Ubuntu::
 
-    sudo aptitude install build-essential python-dev python-setuptools python-pip python-numpy python-qt4 bzr
-    bzr checkout lp:luminoso
+    sudo aptitude install build-essential python-dev python-setuptools python-pip python-numpy python-qt4 git
+    git clone git://github.com/commonsense/luminoso.git
     cd luminoso
     sudo pip install -r requirements.txt
     sudo python setup.py install
@@ -50,18 +50,15 @@ Then, do the following steps (ignoring `sudo` if you're on Windows):
 #. Install SIP (a Python-to-C++ bridge):
     - Download it from
       http://www.riverbankcomputing.co.uk/software/sip/download.
-    - Run its `configure.py`. If you are on Snow Leopard, you will need to give
-      the ``--arch i386`` option.
+    - Run its `configure.py`.
     - Run `make` and `sudo make install`.
 #. Install PyQt4:
     - Download it from
       http://www.riverbankcomputing.co.uk/software/pyqt/download.
-    - Run its `configure.py`. If you are on Snow Leopard, you will need to give
-      the ``--arch i386`` option.
+    - Run its `configure.py`.
     - Run `make` and `sudo make install`.
-#. Install Bazaar, either with `sudo pip install bzr` or by downloading it from
-   http://bazaar-vcs.org.
-#. Download Luminoso with `bzr checkout lp:luminoso`.
+#. Install Git.
+#. Download Luminoso with `git clone git://github.com/commonsense/luminoso.git`.
 #. Install Luminoso with `sudo python setup.py install`.
 
 If that all worked correctly, which is a big if, then you should be able to
