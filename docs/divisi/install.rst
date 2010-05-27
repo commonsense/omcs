@@ -58,7 +58,7 @@ suite.
 .. _MinGW: http://www.mingw.org/wiki/HOWTO_Install_the_MinGW_GCC_Compiler_Suite
 
 After you do this, you need to tell Python to use it. Create a text file called
-`C:\Python26\Lib\distutils\distutils.cfg` containing the following::
+``C:\Python26\Lib\distutils\distutils.cfg`` containing the following::
 
     [build]
     compiler=mingw32
