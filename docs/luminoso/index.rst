@@ -5,6 +5,7 @@ Visualizing results with Luminoso
    :maxdepth: 2
 
    install
+   whats-new
    walkthrough
    statistics
    svdview
