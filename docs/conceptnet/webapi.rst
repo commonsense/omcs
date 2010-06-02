@@ -50,6 +50,65 @@ REST requests
 -------------
 
 
+
+UserHandler
+.......................................
+
+.. function:: /api/user/{username}/
+
+    
+    **Checking users**: A GET request to this URL will confirm whether a user
+    exists. If the user exists, this returns a data structure containing their
+    username. If the user does not exist, it returns a 404 response.
+
+    **Creating users**: A POST request to this URL will create a user that does
+    not already exist. This takes two additional POST parameters:
+
+    - `password`: The password the new user should have.
+    - `email`: (Optional and not very important) The e-mail address to be
+      associated with the user in the database.
+
+    Do not use high-security passwords here. You're sending them over plain
+    HTTP, so they are not encrypted.
+    
+    Implemented by: :class:`csc.webapi.UserHandler`
+
+    
+    
+    **Example:** `GET /api/user/verbosity/query.yaml <http://openmind.media.mit.edu/api/user/verbosity/query.yaml>`_ ::
+    
+        {username: verbosity}
+    
+    
+
+
+LanguageHandler
+.......................................
+
+.. function:: /api/{lang}/
+
+    
+    A GET request to this URL will show basic information about a language --
+    its ID and how many sentences (parsed or unparsed) exist in the database
+    for that language.
+
+    The sentence count is a cached value. It might become out of sync with the
+    actual number of sentences, but it's not supposed to.
+    
+    Implemented by: :class:`csc.webapi.LanguageHandler`
+
+    
+    
+    **Example:** `GET /api/ja/query.yaml <http://openmind.media.mit.edu/api/ja/query.yaml>`_ ::
+    
+        {id: ja, sentence_count: 14057}
+    
+    
+
+
+AssertionHandler
+.......................................
+
 .. function:: /api/{lang}/assertion/{id}/
 
     
@@ -87,6 +146,59 @@ REST requests
     
     
 
+
+AssertionFindHandler
+.......................................
+
+.. function:: /api/{lang}/assertionfind/{relation}/{text1}/{text2}/
+
+    
+    A GET request to this URL will return an Assertion
+    given the text of its two concepts and its relation.
+
+    - `relation` is the name of the relation.
+    - `text1` is the text of the first concept.
+    - `text2` is the text of the second concept.
+    
+    The concept text can actually be any surface form that normalizes to that
+    concept.
+
+    If such an assertion exists, it will be returned. If not, you will get a
+    404 response. You can use this to find out whether the assertion exists or
+    not.
+    
+    Implemented by: :class:`csc.webapi.AssertionFindHandler`
+
+    
+    
+    **Example:** `GET /api/en/assertionfind/IsA/dog/animal/query.yaml <http://openmind.media.mit.edu/api/en/assertionfind/IsA/dog/animal/query.yaml>`_ ::
+    
+        - concept1:
+            canonical_name: a dog
+            language: {id: en}
+            resource_uri: /api/en/concept/dog/
+            text: dog
+          concept2:
+            canonical_name: animals
+            language: {id: en}
+            resource_uri: /api/en/concept/animal/
+            text: animal
+          frequency:
+            language: {id: en}
+            resource_uri: /api/en/frequency//
+            text: ''
+            value: 5
+          language: {id: en}
+          relation: {name: IsA}
+          resource_uri: /api/en/assertion/382591/
+          score: 12
+    
+    
+
+
+ConceptHandler
+.......................................
+
 .. function:: /api/{lang}/concept/{concept}/
 
     
@@ -110,6 +222,10 @@ REST requests
     
     
 
+
+ConceptAssertionHandler
+.......................................
+
 .. function:: /api/{lang}/concept/{concept}/assertions/limit:{limit}/
 
     
@@ -119,7 +235,7 @@ REST requests
     
     The results will be limited to the *n* highest-scoring assertions.
     By default, this limit is 20, but you can set it up to 100 by changing
-    the *limit* in the URI.
+    the *limit* in the URL.
     
     Implemented by: :class:`csc.webapi.ConceptAssertionHandler`
 
@@ -225,6 +341,10 @@ REST requests
     
     
 
+
+ConceptFeatureHandler
+.......................................
+
 .. function:: /api/{lang}/concept/{concept}/features/
 
     
@@ -285,6 +405,10 @@ REST requests
     
     
 
+
+ConceptSurfaceHandler
+.......................................
+
 .. function:: /api/{lang}/concept/{concept}/surfaceforms/limit:{limit}/
 
     
@@ -342,6 +466,10 @@ REST requests
     
     
 
+
+FrameHandler
+.......................................
+
 .. function:: /api/{lang}/frame/{id}/
 
     
@@ -370,30 +498,41 @@ REST requests
     
     
 
+
+RawAssertionByFrameHandler
+.......................................
+
 .. function:: /api/{lang}/frame/{id}/statements/limit:{limit}/
 
     
-    A GET request to this URL lists the RawAssertions that use a particular
+    **Getting assertions**: A GET request to this URL lists the RawAssertions
+    that use a particular
     sentence frame, specified by its ID. As with other queries that return a
     list, this returns 20 results by default, but you can ask for up to 100
     by changing the value of *limit*.
     
-    A POST request to this URL submits new knowledge to Open Mind. The
+    **Adding assertions**: A POST request to this URL submits new knowledge to
+    Open Mind. The
     POST parameters `text1` and `text2` specify the text that fills the blanks.
     
     You must either have a logged-in cookie or send `username` and
     `password` as additional parameters.
     
     Other optional parameters:
-    * `activity`: a string identifying what activity or application this
+
+    - `activity`: a string identifying what activity or application this
       request is coming from.
-    * `vote`: either 1 or -1. This will vote for or against the assertion after
+    - `vote`: either 1 or -1. This will vote for or against the assertion after
       you create it, something you often want to do.
     
     Implemented by: :class:`csc.webapi.RawAssertionByFrameHandler`
 
     
     
+
+
+FrequencyHandler
+.......................................
 
 .. function:: /api/{lang}/frequency/{text}/
 
@@ -415,6 +554,10 @@ REST requests
         value: 4
     
     
+
+
+RawAssertionHandler
+.......................................
 
 .. function:: /api/{lang}/raw_assertion/{id}/
 
@@ -495,6 +638,10 @@ REST requests
     
     
 
+
+SurfaceFormHandler
+.......................................
+
 .. function:: /api/{lang}/surface/{text}/
 
     
@@ -519,6 +666,10 @@ REST requests
         text: have webbed feet
     
     
+
+
+FeatureQueryHandler
+.......................................
 
 .. function:: /api/{lang}/{dir}feature/{relation}/{concept}/limit:{limit}/
 
@@ -601,6 +752,10 @@ REST requests
           score: 1
     
     
+
+
+RatedObjectHandler
+.......................................
 
 .. function:: /api/{lang}/{type}/{id}/votes/
 
