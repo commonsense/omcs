@@ -22,14 +22,26 @@ If you already have a GitHub account, skip to the bottom of this section.
 
 - Go to http://github.com and create an account.
 - Follow the instructions at http://github.com/guides/providing-your-ssh-key, to associate your account with an SSH public key on your computer.
-- Ask an existing OMCS developer to add you to the core CSC projects
-  (currently these are `conceptnet`, `divisi`, `divisi2`, and `csc-utils`).
+- Ask an existing OMCS developer to add you to the `commonsense` organization
+  on GitHub.
 
 For the next step:
 
 - If you use Linux, go to :ref:`linux`.
 - If you use Mac OS X, go to :ref:`mac`.
-- If you use Windows, go to :ref:`windows`.
+- 2If you use Windows, go to :ref:`windows`.
+- If you are working entirely within a virtual Python environment on a system
+that somebody else set up, go to :ref:`in_virtualenv`.
+
+Whoa there
+----------
+You just kept reading! This isn't how this page is designed to be read.
+
+This document has instructions for three different operating systems and
+different Python setups on those operating systems. Most of the page isn't
+going to apply to you. That's why reading straight through it doesn't work.
+
+Now go back a section.
 
 .. _linux:
 
@@ -37,11 +49,11 @@ Linux setup
 -----------
 On Ubuntu, you can get the required packages with this command::
 
-  $ sudo apt-get install python-dev python-setuptools python-pip python-virtualenv build-essential git 
+  $ sudo apt-get install python-dev python-setuptools python-pip python-virtualenv build-essential git python-numpy
 
 On Fedora, you can get the required packages by using::
 
-  $ sudo yum install python-devel python-setuptools python-pip python-virtualenv gcc make git
+  $ sudo yum install python-devel python-setuptools python-pip python-virtualenv gcc make git python-numpy
 
 That's all for the platform-specific stuff. Go on to :ref:`cross_platform`.
 
@@ -153,8 +165,8 @@ Cross-platform directions
 
 .. _cross_platform:
 
-Setting up a virtual environment
-................................
+Setting up virtualenv
+.....................
 ``virtualenv`` is a system that sets up an isolated copy of Python
 for you to develop in.
 
@@ -167,17 +179,35 @@ Use `pip` to get virtualenv and a nice command-line wrapper for it::
 
     sudo pip install virtualenv virtualenvwrapper
 
+Then go on to the next section.
+
+.. _in_virtualenv:
+
+Setting up your virtual environment
+...................................
+
+At this point, the system you're on should have `virtualenv` and
+`virtualenvwrapper` installed, along with other Python tools. Everything else
+can be done within your own user account.
+
 Make a directory for Python environments::
 
     mkdir ~/py
 
-Now set up your shell to work with virtualenvwrapper. (On a Mac, change `.bashrc` to `.bash_profile`.) ::
+Now set up your shell to work with virtualenvwrapper. On Linux, you do this::
 
     echo "export PIP_RESPECT_VIRTUALENV=true" >> ~/.bashrc
     echo "export WORKON_HOME=$HOME/py" >> ~/.bashrc
-    echo "source /usr/local/bin/virtualenvwrapper_bashrc" >> ~/.bashrc
+    echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 
-Open a new terminal window and type::
+On a Mac, you do this::
+
+    echo "export PIP_RESPECT_VIRTUALENV=true" >> ~/.bashrc
+    echo "export WORKON_HOME=$HOME/py" >> ~/.bashrc
+    echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+
+These changes won't take effect until you **open a new terminal window**.
+After you do that, you can type::
 
     mkvirtualenv omcs
 

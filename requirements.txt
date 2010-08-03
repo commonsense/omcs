@@ -9,6 +9,7 @@
 numpy
 nose
 ipython
+readline
 csc-pysparse
 -e git+http://github.com/commonsense/csc-utils.git#egg=csc-utils
 -e git+http://github.com/commonsense/conceptnet.git#egg=conceptnet
