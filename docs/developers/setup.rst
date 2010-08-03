@@ -29,9 +29,8 @@ For the next step:
 
 - If you use Linux, go to :ref:`linux`.
 - If you use Mac OS X, go to :ref:`mac`.
-- 2If you use Windows, go to :ref:`windows`.
-- If you are working entirely within a virtual Python environment on a system
-that somebody else set up, go to :ref:`in_virtualenv`.
+- If you use Windows, go to :ref:`windows`.
+- If you are working entirely within a virtual Python environment on a system that somebody else set up, go to :ref:`in_virtualenv`.
 
 Whoa there
 ----------
