@@ -16,3 +16,6 @@
 [submodule "LexiconLinking"]
 	path = LexiconLinking
 	url = git://github.com/commonsense/LexiconLinking.git
+[submodule "conceptdb"]
+	path = conceptdb
+	url = git://github.com/commonsense/conceptdb.git
