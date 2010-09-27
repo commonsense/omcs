@@ -3,26 +3,41 @@
 Installing and running Luminoso
 ===============================
 
-Self-contained packages
------------------------
+The easiest way to use Luminoso is to install a self-contained package for
+Windows. The second easiest way to install it is to build it on Linux.
 
-The easiest way to use Luminoso is to use one of our self-contained packages
-for Windows or Mac. To be specific, you don't even have to install these. The
-latest versions of these packages can be found at:
-http://launchpad.net/luminoso
+Self-contained Windows packages
+-------------------------------
 
-On Windows, you download a ``.zip`` file that contains all the files Luminoso
-requires, as well as a program called :file:`run_luminoso.exe`. Running this
-program will launch Luminoso. The zip file also contains studies such as
-ThaiFoodStudy that you can use as an example.
+If you have a Windows computer and want to get up and running with a released
+version of Luminoso, these directions are for you.
 
-On Mac, you download a ``.dmg`` file containing Luminoso as a Mac application.
-This means that it contains all the files it needs within it. You can drag
-Luminoso to your `Applications` folder to install it. The examples, also found
-within the .dmg, can go anywhere.
+- Download this file: http://conceptnet.media.mit.edu/dist/Luminoso-1.3.0-win.zip
+- Extract the file wherever you want.
+- Run :file:`run_luminoso.exe` to launch Luminoso.
 
-Installing from scratch
------------------------
+The ZIP file contains all the files Luminoso requires; it does not have to be
+installed to anywhere in particular.
+
+You can also download a couple of small example studies, which show you what a
+study should look like and let you test that Luminoso works: http://conceptnet.media.mit.edu/dist/Luminoso-1.3-example-studies.zip
+
+If this documentation becomes out of date, there may be newer versions in
+http://conceptnet.media.mit.edu/dist/.
+
+Mac packages
+------------
+While we develop Luminoso primarily on Macs, we have no experience with making
+nicely-packaged Mac applications. So far, the only way to run Luminoso on a Mac
+is to build it from source using the directions below.
+
+Building from source
+--------------------
+
+If you are using a Mac or Linux, or you are on Windows and you want to get
+updates more frequently than the releases we make every few months, you can
+install Luminoso from its source code.
+
 On a Linux system, you only need to install the packages we depend on and then
 checkout and install Luminoso. Here's what you do on Ubuntu::
 
@@ -32,7 +47,13 @@ checkout and install Luminoso. Here's what you do on Ubuntu::
     sudo pip install -r requirements.txt
     sudo python setup.py install
 
-On a non-Linux system, this is much harder to do, as it requires setting up a development environment with Python and Qt. You will need:
+Then run Luminoso by simply typing::
+
+    luminoso
+
+On a non-Linux system, this is harder to do, as it requires setting up a development environment with Python and Qt. This requires familiarity with using your operating system's command line.
+
+You will need:
 
 - An official version of Python 2.5 or 2.6 from http://python.org.
 - A C compiler. We suggest mingw32 on Windows, and
@@ -57,13 +78,11 @@ Then, do the following steps (ignoring `sudo` if you're on Windows):
       http://www.riverbankcomputing.co.uk/software/pyqt/download.
     - Run its `configure.py`.
     - Run `make` and `sudo make install`.
-#. Install Git.
+#. Install Git from http://git-scm.com/.
 #. Download Luminoso with `git clone git://github.com/commonsense/luminoso.git`.
 #. Install Luminoso with `sudo python setup.py install`.
 
-If that all worked correctly, which is a big if, then you should be able to
+If that all worked correctly, then you should be able to
 simply type `luminoso` to run Luminoso.
 
-If it fails with an "interrupted system call", you've encountered a bug in
-IPython. `luminoso --no-console` will work around it.
 

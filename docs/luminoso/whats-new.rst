@@ -3,7 +3,7 @@ What's new in Luminoso 1.3?
 Luminoso 1.3 was released on September 27, 2010. It makes many changes from
 1.2, including the much-requested "import CSV" feature.
 
-Changes to the semantic model:
+**Changes to the semantic model:**
 
 - Concepts are now weighted using TF-IDF normalization.
 - Centrality is now calculated by creating an "average document" and comparing
@@ -14,10 +14,11 @@ Changes to the semantic model:
   different stimuli, "version A" and "version B". You can now mark these with
   tags like `#versionA` and `#versionB`. Anything beginning with a hash sign
   will pass through the text processing step completely unchanged, and will not
-  bring in common-sense semantic associations. Tags make great canonical
-  documents.
+  bring in common-sense semantic associations.
+  
+  Tags make great canonical documents.
 
-Interface changes:
+**Interface changes:**
 
 - "Import CSV" option. You can now create a Luminoso study from a file of 
   comma-separated values (which can be exported from Excel, for example).
@@ -32,15 +33,19 @@ Interface changes:
   documents.
 - More points are labeled at one time.
 
-Bug fixes:
+**Bug fixes:**
 
 - Luminoso will complain but not crash when you load something that isn't a
   study.
 - It no longer crashes when a "core concept" or "interesting concept" contains
   a non-ASCII character. Report files are now fully Unicode.
 
-What's new in Luminoso 1.2?
-===========================
+Previous changes
+----------------
+
+Luminoso 1.2
+............
+
 Luminoso 1.2, released May 27, 2010, has many changes over previous versions.
 In some cases, you will benefit from changing your studies accordingly.
 
