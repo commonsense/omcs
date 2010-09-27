@@ -1,3 +1,44 @@
+What's new in Luminoso 1.3?
+===========================
+Luminoso 1.3 was released on September 27, 2010. It makes many changes from
+1.2, including the much-requested "import CSV" feature.
+
+Changes to the semantic model:
+
+- Concepts are now weighted using TF-IDF normalization.
+- Centrality is now calculated by creating an "average document" and comparing
+  all documents to it. Previously, it would compare all documents to all other
+  documents, which was less statistically justifiable.
+- Tags. Often you want to distinguish different kinds of documents from each
+  other. For example, your documents may come from people reacting to two
+  different stimuli, "version A" and "version B". You can now mark these with
+  tags like `#versionA` and `#versionB`. Anything beginning with a hash sign
+  will pass through the text processing step completely unchanged, and will not
+  bring in common-sense semantic associations. Tags make great canonical
+  documents.
+
+Interface changes:
+
+- "Import CSV" option. You can now create a Luminoso study from a file of 
+  comma-separated values (which can be exported from Excel, for example).
+- You can now change the "concept threshold", which is the number of times a
+  word or phrase must appear in the documents to be considered as a concept in
+  the study. The default value, 2, is reasonable for small studies; turn it up
+  as your study gets larger.
+- When a concept is selected, it now shows gray lines to other related
+  concepts (in addition to the blue lines to the documents that include it,
+  and the red lines to the documents that include its negation).
+- Axes no longer show up much further from the origin than concepts and
+  documents.
+- More points are labeled at one time.
+
+Bug fixes:
+
+- Luminoso will complain but not crash when you load something that isn't a
+  study.
+- It no longer crashes when a "core concept" or "interesting concept" contains
+  a non-ASCII character. Report files are now fully Unicode.
+
 What's new in Luminoso 1.2?
 ===========================
 Luminoso 1.2, released May 27, 2010, has many changes over previous versions.
