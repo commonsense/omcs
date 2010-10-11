@@ -85,4 +85,16 @@ Then, do the following steps (ignoring `sudo` if you're on Windows):
 If that all worked correctly, then you should be able to
 simply type `luminoso` to run Luminoso.
 
+.. _command-line-luminoso:
+
+Getting the command-line version
+--------------------------------
+As of Luminoso 1.3.1, you can run the core of Luminoso from the command line,
+using the `luminoso-study` command. If you don't need the GUI, the setup
+process is easier:
+
+#. Follow our :doc:`/install`.
+#. Install Git from http://git-scm.com/.
+#. Download Luminoso with `git clone git://github.com/commonsense/luminoso.git`.
+#. Install Luminoso with `sudo python setup.py install`.
 
