@@ -26,7 +26,7 @@ You can get an empty study in a few ways:
 - At the command line: Copy the "study_skel" directory out of Luminoso.
 - In Python: `from luminoso.study import StudyDirectory; StudyDirectory.make_new(dirname)`
 - By using any other tools to make a directory that conforms to the
-:doc:`Luminoso study layout </luminoso/study_layout>`.
+  :doc:`Luminoso study layout </luminoso/study-layout>`.
 
 Running a study
 ---------------
