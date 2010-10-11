@@ -82,31 +82,38 @@ Let's access the ThaiFoodStudy results at the Python prompt::
 
 We can look for associations between concepts by examining rows of this
 ReconstructedMatrix. For example, to see the strongest associations with the
-concept "curry"::
+concept "vegetable"::
 
-    >>> print assoc.row_named('curry').top_items()
-    [(u'curry', 0.99999999999999989), (u'crispy', 0.99182961432896466),
-     (u'egg noodle', 0.98721328226393767),
-     (u'noodle dish', 0.98689402327077547), (u'watery', 0.98686111284616118),
-     (u'pancake', 0.98444444661922803), (u'shrimp', 0.98428171042567703),
-     (u'scallion pancake', 0.98202248820385074),
-     (u'peanut sauce', 0.98075292713607232), (u'noodle', 0.98029932202575432)]
+    >>> print assoc.row_named('vegetable').top_items()
+    [(u'vegetable', 0.99999999999999989),
+     (u'garlic', 0.9772524047519251), 
+     (u'mushroom', 0.96301312675302442), 
+     (u'fresh', 0.96163645137304254), 
+     (u'rice', 0.94600036931464149), 
+     (u'carrot', 0.94280954944970685), 
+     (u'pork', 0.94144559701963959), 
+     (u'garlic sauce', 0.93913744447247449), 
+     (u'sauce', 0.93783763382356655), 
+     ('kevint.txt', 0.9270205077232927)]
 
 To see the things that are most associated with the canonical document
 "good_review.txt"::
 
-    >>> print assoc.row_named('good_review.txt').top_items(8)
-    [('good_review.txt', 1.0), ('jessicar.txt', 0.97577833964984861),
-     ('sandrac.txt', 0.9580045079574262),
-     (u'quick', 0.9505259843376358),
-     ('ruthp.txt', 0.94588831590264377),
-     (u'good vegetarian', 0.94541634793231299),
-     (u'vegetarian option', 0.94541634793231288),
-     (u'vegetarian', 0.94389482721261653)]
+    >>> print assoc.row_named('good_review.txt').top_items()
+    [('good_review.txt', 1.0000000000000002),
+     ('canonical_chinese.txt', 0.92889406419997134), 
+     (u'asian', 0.92718551309360131), 
+     ('jessicar.txt', 0.92487692014860889), 
+     (u'4star good', 0.90923219222809393), 
+     (u'good', 0.90746181077759946), 
+     (u'favorite', 0.90608964423206972), 
+     (u'thai cuisine', 0.9042539675394875), 
+     (u'cuisine', 0.90412111729251321), 
+     (u'decent food', 0.89430099965268894)]
 
 And finally, to see the strength of the relationship between "curry" and
 "good_review.txt" (which may indicate what reviewers think of the curry)::
 
     >>> print assoc.entry_named('curry', 'good_review.txt')
-    0.68903313654
+    0.70037720731290354
 

@@ -1,7 +1,8 @@
 What's new in Luminoso 1.3?
 ===========================
-Luminoso 1.3 was released on September 27, 2010. It makes many changes from
-1.2, including the much-requested "import CSV" feature.
+Luminoso 1.3 was released on September 27, 2010, with a minor update (Luminoso
+1.3.1) on October 11. It makes many changes from 1.2, including the
+much-requested "import CSV" feature.
 
 **Changes to the semantic model:**
 
@@ -22,6 +23,8 @@ Luminoso 1.3 was released on September 27, 2010. It makes many changes from
 
 - "Import CSV" option. You can now create a Luminoso study from a file of 
   comma-separated values (which can be exported from Excel, for example).
+- (Luminoso 1.3.1) Made it easier to work with Luminoso from the command line.
+  See :doc:`/luminoso/power-users`.
 - You can now change the "concept threshold", which is the number of times a
   word or phrase must appear in the documents to be considered as a concept in
   the study. The default value, 2, is reasonable for small studies; turn it up
@@ -35,6 +38,8 @@ Luminoso 1.3 was released on September 27, 2010. It makes many changes from
 
 **Bug fixes:**
 
+- (Luminoso 1.3.1) Version 1.3.0 was ignoring the word "not". This is fixed
+  now.
 - Luminoso will complain but not crash when you load something that isn't a
   study.
 - It no longer crashes when a "core concept" or "interesting concept" contains
