@@ -8,4 +8,6 @@ Visualizing results with Luminoso
    whats-new
    walkthrough
    statistics
+   study-layout
+   power-users
    svdview
