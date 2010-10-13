@@ -1,8 +1,9 @@
 What's new in Luminoso 1.3?
 ===========================
-Luminoso 1.3 was released on September 27, 2010, with a minor update (Luminoso
-1.3.1) on October 11. It makes many changes from 1.2, including the
-much-requested "import CSV" feature.
+
+Luminoso 1.3 was released on September 27, 2010. There have been some minor bug
+fixes since then, so the current version is 1.3.2. This version makes many
+changes from version 1.2.
 
 **Changes to the semantic model:**
 
@@ -15,16 +16,15 @@ much-requested "import CSV" feature.
   different stimuli, "version A" and "version B". You can now mark these with
   tags like `#versionA` and `#versionB`. Anything beginning with a hash sign
   will pass through the text processing step completely unchanged, and will not
-  bring in common-sense semantic associations.
+  bring in common-sense semantic associations. You can also add the opposite of
+  a tag by adding a hyphen after the hash sign -- for example, you could encode
+  a survey response about whether people would or would not recommend something
+  as `#WouldRecommend` and `#-WouldRecommend`.
   
   Tags make great canonical documents.
 
 **Interface changes:**
 
-- "Import CSV" option. You can now create a Luminoso study from a file of 
-  comma-separated values (which can be exported from Excel, for example).
-- (Luminoso 1.3.1) Made it easier to work with Luminoso from the command line.
-  See :doc:`/luminoso/power-users`.
 - You can now change the "concept threshold", which is the number of times a
   word or phrase must appear in the documents to be considered as a concept in
   the study. The default value, 2, is reasonable for small studies; turn it up
@@ -35,9 +35,13 @@ much-requested "import CSV" feature.
 - Axes no longer show up much further from the origin than concepts and
   documents.
 - More points are labeled at one time.
+- (Luminoso 1.3.1) Made it easier to work with Luminoso from the command line.
+  See :doc:`/luminoso/power-users`.
 
 **Bug fixes:**
 
+- (Luminoso 1.3.2) Made tags associate throughout the document, not just to
+  nearby words.
 - (Luminoso 1.3.1) Version 1.3.0 was ignoring the word "not". This is fixed
   now.
 - Luminoso will complain but not crash when you load something that isn't a
