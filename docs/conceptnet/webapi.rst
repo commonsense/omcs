@@ -101,7 +101,7 @@ LanguageHandler
     
     **Example:** `GET /api/ja/query.yaml <http://openmind.media.mit.edu/api/ja/query.yaml>`_ ::
     
-        {id: ja, sentence_count: 14057}
+        {id: ja, sentence_count: 14540}
     
     
 
@@ -142,7 +142,467 @@ AssertionHandler
         language: {id: en}
         relation: {name: HasSubevent}
         resource_uri: /api/en/assertion/25/
-        score: 8
+        score: 9
+    
+    
+
+
+AssertionToRawHandler
+.......................................
+
+.. function:: /api/{lang}/assertion/{id}/raw/
+
+    
+    A GET request to this URL will list the RawAssertions (natural language
+    statements) associated with a given Assertion ID.
+    
+    Implemented by: :class:`csc.webapi.AssertionToRawHandler`
+
+    
+    
+    **Example:** `GET /api/en/assertion/31445/raw/query.yaml <http://openmind.media.mit.edu/api/en/assertion/31445/raw/query.yaml>`_ ::
+    
+        - assertion:
+            concept1:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            concept2:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/assertion/31445/
+            score: 21
+          created: 2009-03-12 07:39:58.485641
+          creator: {username: infovore}
+          frame:
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            goodness: 2
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/frame/90/
+            text: '{1} can be used to {2}'
+          language: {id: en}
+          resource_uri: /api/en/raw_assertion/223329/
+          score: 16
+          sentence:
+            created_on: 2006-11-14 17:38:29.661909
+            creator: {username: infovore}
+            language: {id: en}
+            score: 11
+            text: A computer can be used to play games.
+          surface1:
+            concept:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            language: {id: en}
+            residue: a 1
+            resource_uri: /api/en/surface/A%20computer/
+            text: A computer
+          surface2:
+            concept:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            language: {id: en}
+            residue: 1 2s
+            resource_uri: /api/en/surface/play%20games/
+            text: play games
+          updated: 2010-08-16 11:32:46.755767
+        - assertion:
+            concept1:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            concept2:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/assertion/31445/
+            score: 21
+          created: 2009-03-11 21:33:53.941539
+          creator: {username: jradoff}
+          frame:
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            goodness: 2
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/frame/90/
+            text: '{1} can be used to {2}'
+          language: {id: en}
+          resource_uri: /api/en/raw_assertion/85931/
+          score: 2
+          sentence:
+            created_on: 2006-11-14 16:06:57.129833
+            creator: {username: jradoff}
+            language: {id: en}
+            score: 1
+            text: Computers can be used to play games
+          surface1:
+            concept:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            language: {id: en}
+            residue: 1s
+            resource_uri: /api/en/surface/Computers/
+            text: Computers
+          surface2:
+            concept:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            language: {id: en}
+            residue: 1 2s
+            resource_uri: /api/en/surface/play%20games/
+            text: play games
+          updated: 2010-04-21 21:52:27.157557
+        - assertion:
+            concept1:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            concept2:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/assertion/31445/
+            score: 21
+          created: 2009-03-11 18:43:07.429866
+          creator: {username: Chriki}
+          frame:
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            goodness: 2
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/frame/4/
+            text: You can use {1} to {2}
+          language: {id: en}
+          resource_uri: /api/en/raw_assertion/33432/
+          score: 2
+          sentence:
+            created_on: 2006-11-14 15:32:32.050252
+            creator: {username: Chriki}
+            language: {id: en}
+            score: 1
+            text: You can use a computer to play games.
+          surface1:
+            concept:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            language: {id: en}
+            residue: a 1
+            resource_uri: /api/en/surface/a%20computer/
+            text: a computer
+          surface2:
+            concept:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            language: {id: en}
+            residue: 1 2s
+            resource_uri: /api/en/surface/play%20games/
+            text: play games
+          updated: 2010-04-21 23:17:28.934516
+        - assertion:
+            concept1:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            concept2:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/assertion/31445/
+            score: 21
+          created: 2009-03-12 02:44:06.656549
+          creator: {username: Surgchen}
+          frame:
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            goodness: 3
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/frame/7/
+            text: '{1} is for {2}'
+          language: {id: en}
+          resource_uri: /api/en/raw_assertion/163934/
+          score: 1
+          sentence:
+            created_on: 2006-11-14 16:53:44.325891
+            creator: {username: Surgchen}
+            language: {id: en}
+            score: 1
+            text: a computer is for playing games
+          surface1:
+            concept:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            language: {id: en}
+            residue: a 1
+            resource_uri: /api/en/surface/a%20computer/
+            text: a computer
+          surface2:
+            concept:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            language: {id: en}
+            residue: 1'ing 2s
+            resource_uri: /api/en/surface/playing%20games/
+            text: playing games
+          updated: 2009-12-03 09:35:58.763571
+        - assertion:
+            concept1:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            concept2:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/assertion/31445/
+            score: 21
+          created: 2009-03-12 01:39:23.581455
+          creator: {username: hanta007}
+          frame:
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            goodness: 2
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/frame/8/
+            text: '{1} is used for {2}'
+          language: {id: en}
+          resource_uri: /api/en/raw_assertion/149058/
+          score: 1
+          sentence:
+            created_on: 2006-11-14 16:42:50.858692
+            creator: {username: hanta007}
+            language: {id: en}
+            score: 1
+            text: a computer is used for playing games
+          surface1:
+            concept:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            language: {id: en}
+            residue: a 1
+            resource_uri: /api/en/surface/a%20computer/
+            text: a computer
+          surface2:
+            concept:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            language: {id: en}
+            residue: 1'ing 2s
+            resource_uri: /api/en/surface/playing%20games/
+            text: playing games
+          updated: 2009-12-03 05:46:13.115839
+        - assertion:
+            concept1:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            concept2:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/assertion/31445/
+            score: 21
+          created: 2010-02-16 19:42:42.007318
+          creator: {username: puga}
+          frame:
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            goodness: 3
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/frame/7/
+            text: '{1} is for {2}'
+          language: {id: en}
+          resource_uri: /api/en/raw_assertion/1284488/
+          score: 1
+          sentence:
+            created_on: 2010-02-16 19:42:44.207263
+            creator: {username: puga}
+            language: {id: en}
+            score: 1
+            text: computer is for play games
+          surface1:
+            concept:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            language: {id: en}
+            residue: '1'
+            resource_uri: /api/en/surface/computer/
+            text: computer
+          surface2:
+            concept:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            language: {id: en}
+            residue: 1 2s
+            resource_uri: /api/en/surface/play%20games/
+            text: play games
+          updated: 2010-02-16 19:42:45.829579
+        - assertion:
+            concept1:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            concept2:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/assertion/31445/
+            score: 21
+          created: 2009-04-14 21:09:56.440264
+          creator: {username: openmind}
+          frame:
+            frequency:
+              language: {id: en}
+              resource_uri: /api/en/frequency//
+              text: ''
+              value: 5
+            goodness: 2
+            language: {id: en}
+            relation: {name: UsedFor}
+            resource_uri: /api/en/frame/90/
+            text: '{1} can be used to {2}'
+          language: {id: en}
+          resource_uri: /api/en/raw_assertion/544683/
+          score: 1
+          sentence:
+            created_on: 2009-04-14 21:09:56.521981
+            creator: {username: openmind}
+            language: {id: en}
+            score: 1
+            text: computers can be used to play games
+          surface1:
+            concept:
+              canonical_name: a computer
+              language: {id: en}
+              resource_uri: /api/en/concept/computer/
+              text: computer
+            language: {id: en}
+            residue: 1s
+            resource_uri: /api/en/surface/computers/
+            text: computers
+          surface2:
+            concept:
+              canonical_name: play a game
+              language: {id: en}
+              resource_uri: /api/en/concept/play%20game/
+              text: play game
+            language: {id: en}
+            residue: 1 2s
+            resource_uri: /api/en/surface/play%20games/
+            text: play games
+          updated: 2009-12-03 15:14:18.291844
     
     
 
@@ -282,6 +742,25 @@ ConceptAssertionHandler
           resource_uri: /api/en/assertion/76465/
           score: 1
         - concept1:
+            canonical_name: duck
+            language: {id: en}
+            resource_uri: /api/en/concept/duck/
+            text: duck
+          concept2:
+            canonical_name: webbed feet
+            language: {id: en}
+            resource_uri: /api/en/concept/web%20foot/
+            text: web foot
+          frequency:
+            language: {id: en}
+            resource_uri: /api/en/frequency//
+            text: ''
+            value: 5
+          language: {id: en}
+          relation: {name: IsA}
+          resource_uri: /api/en/assertion/699417/
+          score: 1
+        - concept1:
             canonical_name: penquin
             language: {id: en}
             resource_uri: /api/en/concept/penquin/
@@ -318,25 +797,6 @@ ConceptAssertionHandler
           language: {id: en}
           relation: {name: HasProperty}
           resource_uri: /api/en/assertion/641891/
-          score: 1
-        - concept1:
-            canonical_name: duck
-            language: {id: en}
-            resource_uri: /api/en/concept/duck/
-            text: duck
-          concept2:
-            canonical_name: webbed feet
-            language: {id: en}
-            resource_uri: /api/en/concept/web%20foot/
-            text: web foot
-          frequency:
-            language: {id: en}
-            resource_uri: /api/en/frequency//
-            text: ''
-            value: 5
-          language: {id: en}
-          relation: {name: IsA}
-          resource_uri: /api/en/assertion/699417/
           score: 1
     
     
@@ -591,7 +1051,7 @@ RawAssertionHandler
           language: {id: en}
           relation: {name: HasSubevent}
           resource_uri: /api/en/assertion/25/
-          score: 8
+          score: 9
         created: 2009-03-11 14:59:35.901858
         creator: {username: MrMcGibby}
         frame:
@@ -713,25 +1173,6 @@ FeatureQueryHandler
           resource_uri: /api/en/assertion/75224/
           score: 7
         - concept1:
-            canonical_name: penquin
-            language: {id: en}
-            resource_uri: /api/en/concept/penquin/
-            text: penquin
-          concept2:
-            canonical_name: webbed feet
-            language: {id: en}
-            resource_uri: /api/en/concept/web%20foot/
-            text: web foot
-          frequency:
-            language: {id: en}
-            resource_uri: /api/en/frequency//
-            text: ''
-            value: 5
-          language: {id: en}
-          relation: {name: HasA}
-          resource_uri: /api/en/assertion/101343/
-          score: 1
-        - concept1:
             canonical_name: a waterfowl
             language: {id: en}
             resource_uri: /api/en/concept/waterfowl/
@@ -749,6 +1190,25 @@ FeatureQueryHandler
           language: {id: en}
           relation: {name: HasA}
           resource_uri: /api/en/assertion/76465/
+          score: 1
+        - concept1:
+            canonical_name: penquin
+            language: {id: en}
+            resource_uri: /api/en/concept/penquin/
+            text: penquin
+          concept2:
+            canonical_name: webbed feet
+            language: {id: en}
+            resource_uri: /api/en/concept/web%20foot/
+            text: web foot
+          frequency:
+            language: {id: en}
+            resource_uri: /api/en/frequency//
+            text: ''
+            value: 5
+          language: {id: en}
+          relation: {name: HasA}
+          resource_uri: /api/en/assertion/101343/
           score: 1
     
     
@@ -803,9 +1263,13 @@ RatedObjectHandler
           language: {id: en}
           relation: {name: HasSubevent}
           resource_uri: /api/en/assertion/25/
-          score: 8
+          score: 9
         type: assertion
         votes:
+        - user: {username: PaoloM}
+          vote: 1
+        - user: {username: dab}
+          vote: 1
         - user: {username: rspeer}
           vote: 1
         - user: {username: MrMcGibby}
@@ -819,8 +1283,6 @@ RatedObjectHandler
         - user: {username: glennlee}
           vote: 1
         - user: {username: skoerber}
-          vote: 1
-        - user: {username: dab}
           vote: 1
     
     
