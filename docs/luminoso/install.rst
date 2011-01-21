@@ -12,7 +12,7 @@ Self-contained Windows packages
 If you have a Windows computer and want to get up and running with a released
 version of Luminoso, these directions are for you.
 
-- Download this file: http://conceptnet.media.mit.edu/dist/Luminoso-1.3.0-win.zip
+- Download this file: http://conceptnet.media.mit.edu/dist/Luminoso/Luminoso-1.3.3-win.zip
 - Extract the file wherever you want.
 - Run :file:`run_luminoso.exe` to launch Luminoso.
 
@@ -20,10 +20,10 @@ The ZIP file contains all the files Luminoso requires; it does not have to be
 installed to anywhere in particular.
 
 You can also download a couple of small example studies, which show you what a
-study should look like and let you test that Luminoso works: http://conceptnet.media.mit.edu/dist/Luminoso-1.3-example-studies.zip
+study should look like and let you test that Luminoso works: http://conceptnet.media.mit.edu/dist/Luminoso/Luminoso-1.3-example-studies.zip
 
 If this documentation becomes out of date, there may be newer versions in
-http://conceptnet.media.mit.edu/dist/.
+http://conceptnet.media.mit.edu/dist/Luminoso.
 
 Mac packages
 ------------
