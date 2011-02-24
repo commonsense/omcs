@@ -6,13 +6,17 @@
 # These packages will be installed in 'develop' mode into the src/ directory
 # of your Python virtual environment. Note that your git repositories will
 # not allow pushing, because you probably don't have access.
+#
+# If you want to contribute to this project, be sure to read
+# devel_requirements.txt.
 numpy
 nose
 ipython
 readline
 csc-pysparse
 -e git+http://github.com/commonsense/csc-utils.git#egg=csc-utils
+-e git+http://github.com/commonsense/simplenlp.git#egg=simplenlp
 -e git+http://github.com/commonsense/conceptnet.git#egg=conceptnet
+-e git+http://github.com/commonsense/conceptdb.git#egg=conceptdb
 -e git+http://github.com/commonsense/divisi.git#egg=divisi
 -e git+http://github.com/commonsense/divisi2.git#egg=divisi2
-
