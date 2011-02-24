@@ -1,0 +1,5 @@
+#!/bin/bash
+for subdir in LexiconLinking conceptdb conceptnet csc-utils divisi divisi2 openmind-commons simplenlp; do
+  echo $subdir
+  (cd $subdir && git pull && git status)
+done
