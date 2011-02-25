@@ -22,7 +22,7 @@ On Ubuntu, this should get you from zero to ConceptNet::
     $ sudo aptitude install python-dev python-setuptools python-pip ipython
     $ sudo pip install conceptnet
     $ ipython -cl
-    >>> from csc.conceptnet.models import *
+    >>> from conceptnet.models import *
 
 Then type 'y' to download and install the ConceptNet database.
 
@@ -56,7 +56,7 @@ Getting the database
 With the newest release of ConceptNet, just try importing ConceptNet
 and it will download the database for you if necessary::
 
-    >>> from csc.conceptnet.models import *
+    >>> from conceptnet.models import *
 
 If that works for you, you're done. Skip to :ref:`the last section <tryitout>`.
 If that fails, or you just want to do things manually, keep reading.
@@ -119,7 +119,7 @@ Try it out
 If you've set up ConceptNet correctly, you should be able to run the following
 small example. Start ``ipython`` and type the following lines::
 
-  from csc.conceptnet4.models import Concept
+  from conceptnet.models import Concept
   dog = Concept.get('dog', 'en')
   for fwd in dog.get_assertions_forward()[:20]:
       print fwd
