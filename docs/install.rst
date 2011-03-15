@@ -103,7 +103,7 @@ Next Steps
 That's all you need. From here, you can go on to:
 
 * :doc:`Installing ConceptNet <conceptnet/install>`
-* :doc:`Installing Divisi <divisi/install>`
+* :doc:`Installing Divisi <divisi2/install>`
 * :doc:`Installing Luminoso <luminoso/install>`
 * :doc:`developers/setup`
 
