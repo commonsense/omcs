@@ -50,6 +50,63 @@ checkout and install Luminoso. Here's what you do on Ubuntu::
 Then run Luminoso by simply typing::
 
     luminoso
+    
+On a Mac, the build process can be done similarly, but you'll suffer from a 
+multiplicity of pythons; as Macs have no One True Package Manager, you probably
+have several copies of python installed already. For this install process we'll use
+MacPorts to install the dependencies, then ensure that all our python commands refer
+to the MacPorts version.
+
+Most Python packages for MacPorts have names like py26-dev for python 2.6, so:
+
+	sudo port install py26-pip py26-numpy py26-pyqt4 git-core python_select
+
+This will likely take a long time. ATLAS, a linear algebra program that is a dependency
+for numPy, is a particular offender here; it recommends that you disable processor
+throttling during its install as it will do a lot of processor timing to optimize itself.
+If you know how to do that by all means do, but it won't hurt your build to ignore it.
+You'll also get a Fortran compiler. One way or another, just run the command and come
+back later.
+
+Once that's done, use python_select to choose the correct python:
+	
+	python_select -l
+
+will give you a list of Python installs; use
+
+	sudo python_select <install_name>
+	
+where <install_name> is one of the results from the previous command to switch between
+them. After doing so, run
+
+	which python
+
+to see python's path; the correct result is something like /opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/python
+rather than /Library... Also run
+
+	which pip
+	
+If you don't get something like /opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/pip
+you'll need to change your .bash_profile to include the line
+
+	export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin:/opt/local/bin:$PATH
+
+then run
+	
+	source .bash_profile
+	
+and the results of which pip should be correct.
+
+All that done, use the same install process as for Ubuntu:
+
+    git clone git://github.com/commonsense/luminoso.git
+    cd luminoso
+    sudo pip install -r requirements.txt
+    sudo python setup.py install
+
+And run by typing
+
+	luminoso
 
 On a non-Linux system, this is harder to do, as it requires setting up a development environment with Python and Qt. This requires familiarity with using your operating system's command line.
 
