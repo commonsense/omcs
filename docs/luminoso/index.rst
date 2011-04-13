@@ -1,5 +1,5 @@
-Visualizing results with Luminoso
-=================================
+Analyzing text with Luminoso
+============================
 
 .. toctree::
    :maxdepth: 2
