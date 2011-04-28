@@ -19,3 +19,7 @@
 [submodule "conceptdb"]
 	path = conceptdb
 	url = git://github.com/commonsense/conceptdb.git
+[submodule "simplenlp"]
+	path = simplenlp
+	url = git://github.com/commonsense/simplenlp.git
+
