@@ -1,0 +1,12 @@
+#!/bin/bash
+fail() {
+  echo "$@"
+  exit 1
+}
+
+for project in csc-utils simplenlp conceptnet divisi2; do
+  echo Installing $project ...
+  cd $project || fail "$project does not exist"
+  python setup.py develop || fail "python setup.py develop in $project failed"
+  cd ..
+done
