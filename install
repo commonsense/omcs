@@ -4,6 +4,7 @@ fail() {
   exit 1
 }
 
+pip install csc-pysparse || fail "Installing csc-pysparse failed."
 for project in csc-utils simplenlp conceptnet divisi2; do
   echo Installing $project ...
   cd $project || fail "$project does not exist"

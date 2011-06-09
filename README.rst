@@ -50,15 +50,22 @@ currently managed as subprojects:
 About this repository
 =====================
 
-This is the top-level project for Open Mind Common Sense. All of the actual
-code is in submodules. To check out its contents, run::
+This is the top-level project for Open Mind Common Sense. All of the
+actual code is in submodules. To check out or update its contents, run
+`./update` (requires a recent version of git). To install everything,
+decide if you want the equivalent of `python setup.py develop` or
+`python setup.py install`, and run one of `./develop` or `./install`.
 
-  git submodule init
-  git submodule update
+The git submodule system is a bit strange in that it checks out
+commits instead of branches. This means checkouts start in
+"disconnected head" mode, which makes it too easy to lose work. You
+may want to do something like the following::
+
+    git submodule foreach git checkout master
+
+If not, at least make a branch for your own work first::
+
+  git checkout -b universal_semantics
 
 Alternatively, you can install the submodules into your Python environment 
 using ``pip``. See `requirements.txt` or `devel_requirements.txt`.
-
-We highly recommend that if you make changes to the code of one module, you first check out that module separately, or you may accidentally lose work. (If you're afraid you lost work already, don't worry; there are usually ways to recover.) At least make a branch for your own work first::
-
-  git checkout -b universal_semantics
