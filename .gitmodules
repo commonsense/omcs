@@ -1,9 +1,6 @@
 [submodule "csc-utils"]
 	path = csc-utils
 	url = git://github.com/commonsense/csc-utils.git
-[submodule "divisi"]
-	path = divisi
-	url = git://github.com/commonsense/divisi.git
 [submodule "divisi2"]
 	path = divisi2
 	url = git://github.com/commonsense/divisi2.git
@@ -13,9 +10,6 @@
 [submodule "openmind-commons"]
 	path = openmind-commons
 	url = git://github.com/rspeer/openmind-commons.git
-[submodule "LexiconLinking"]
-	path = LexiconLinking
-	url = git://github.com/commonsense/LexiconLinking.git
 [submodule "conceptdb"]
 	path = conceptdb
 	url = git://github.com/commonsense/conceptdb.git
