@@ -16,7 +16,7 @@ database structure appears in the following figure:
 It also provides the non-database classes :class:`Proposition` and
 :class:`Feature`.
 
-.. automodule:: csc.conceptnet.models
+.. automodule:: conceptnet.models
 
 Concepts
 --------

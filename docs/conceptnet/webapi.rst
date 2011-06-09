@@ -71,7 +71,7 @@ UserHandler
     Do not use high-security passwords here. You're sending them over plain
     HTTP, so they are not encrypted.
     
-    Implemented by: :class:`csc.webapi.UserHandler`
+    Implemented by: :class:`conceptnet.webapi.UserHandler`
 
     
     
@@ -95,7 +95,7 @@ LanguageHandler
     The sentence count is a cached value. It might become out of sync with the
     actual number of sentences, but it's not supposed to.
     
-    Implemented by: :class:`csc.webapi.LanguageHandler`
+    Implemented by: :class:`conceptnet.webapi.LanguageHandler`
 
     
     
@@ -118,7 +118,7 @@ AssertionHandler
     This ID will appear in URLs of other objects,
     such as RawAssertions, that refer to this Assertion.
     
-    Implemented by: :class:`csc.webapi.AssertionHandler`
+    Implemented by: :class:`conceptnet.webapi.AssertionHandler`
 
     
     
@@ -156,7 +156,7 @@ AssertionToRawHandler
     A GET request to this URL will list the RawAssertions (natural language
     statements) associated with a given Assertion ID.
     
-    Implemented by: :class:`csc.webapi.AssertionToRawHandler`
+    Implemented by: :class:`conceptnet.webapi.AssertionToRawHandler`
 
     
     
@@ -627,7 +627,7 @@ AssertionFindHandler
     404 response. You can use this to find out whether the assertion exists or
     not.
     
-    Implemented by: :class:`csc.webapi.AssertionFindHandler`
+    Implemented by: :class:`conceptnet.webapi.AssertionFindHandler`
 
     
     
@@ -669,7 +669,7 @@ ConceptHandler
     up in the first place. However, you can use this to test for a concept's
     existence, and this URL is a base for more interesting queries on concepts.
     
-    Implemented by: :class:`csc.webapi.ConceptHandler`
+    Implemented by: :class:`conceptnet.webapi.ConceptHandler`
 
     
     
@@ -690,14 +690,14 @@ ConceptAssertionHandler
 
     
     A GET request to this URL will look up all the
-    :class:`Assertions <csc.conceptnet.models.Assertion>` that this
+    :class:`Assertions <conceptnet.models.Assertion>` that this
     Concept participates in with a score of at least 1.
     
     The results will be limited to the *n* highest-scoring assertions.
     By default, this limit is 20, but you can set it up to 100 by changing
     the *limit* in the URL.
     
-    Implemented by: :class:`csc.webapi.ConceptAssertionHandler`
+    Implemented by: :class:`conceptnet.webapi.ConceptAssertionHandler`
 
     
     
@@ -809,15 +809,15 @@ ConceptFeatureHandler
 
     
     A GET request to this URL will return a list of all existing
-    :class:`Features <csc.conceptnet.models.Features>` built on the given
-    :class:`Concept <csc.conceptnet.models.Concept>`.
+    :class:`Features <conceptnet.models.Features>` built on the given
+    :class:`Concept <conceptnet.models.Concept>`.
 
     The features will be described in a short form: each feature will be a
     dictionary containing its *direction*, the *relation* involved, and the
     *resource_uri* for looking up more information about that feature. The
     concept will be omitted from each feature, because you already know it.
     
-    Implemented by: :class:`csc.webapi.ConceptFeatureHandler`
+    Implemented by: :class:`conceptnet.webapi.ConceptFeatureHandler`
 
     
     
@@ -873,7 +873,7 @@ ConceptSurfaceHandler
 
     
     A GET request to this URL will look up all the
-    :class:`SurfaceForms <csc.conceptnet.models.SurfaceForm>` that
+    :class:`SurfaceForms <conceptnet.models.SurfaceForm>` that
     correspond to this Concept -- that is, the phrases of natural language
     that are considered to reduce to this Concept.
     
@@ -881,7 +881,7 @@ ConceptSurfaceHandler
     By default, this limit is 20, but you can set it up to 100 by adding
     `limit:n/` to the URI.
     
-    Implemented by: :class:`csc.webapi.ConceptSurfaceHandler`
+    Implemented by: :class:`conceptnet.webapi.ConceptSurfaceHandler`
 
     
     
@@ -939,7 +939,7 @@ FrameHandler
     This ID will appear in URLs of other objects,
     such as RawAssertions, that refer to this Frame.
     
-    Implemented by: :class:`csc.webapi.FrameHandler`
+    Implemented by: :class:`conceptnet.webapi.FrameHandler`
 
     
     
@@ -985,7 +985,7 @@ RawAssertionByFrameHandler
     - `vote`: either 1 or -1. This will vote for or against the assertion after
       you create it, something you often want to do.
     
-    Implemented by: :class:`csc.webapi.RawAssertionByFrameHandler`
+    Implemented by: :class:`conceptnet.webapi.RawAssertionByFrameHandler`
 
     
     
@@ -1002,7 +1002,7 @@ FrequencyHandler
     -10 to 10, so for example, you can use this to determine that
     the English modifier "sometimes" has a value of 4 in ConceptNet.
     
-    Implemented by: :class:`csc.webapi.FrequencyHandler`
+    Implemented by: :class:`conceptnet.webapi.FrequencyHandler`
 
     
     
@@ -1026,7 +1026,7 @@ RawAssertionHandler
     with a particular ID. This includes the Sentence and Assertion that it
     connects, if they exist.
     
-    Implemented by: :class:`csc.webapi.RawAssertionHandler`
+    Implemented by: :class:`conceptnet.webapi.RawAssertionHandler`
 
     
     
@@ -1109,7 +1109,7 @@ SurfaceFormHandler
     SurfaceForm must represent a phrase that someone has used at some point
     on ConceptNet.
     
-    Implemented by: :class:`csc.webapi.SurfaceFormHandler`
+    Implemented by: :class:`conceptnet.webapi.SurfaceFormHandler`
 
     
     
@@ -1135,19 +1135,19 @@ FeatureQueryHandler
 
     
     A GET request to this URL will look up the
-    :class:`Assertions <csc.conceptnet.models.Assertion>` that contain a
-    certain :class:`Feature <csc.conceptnet.models.Feature>`.
+    :class:`Assertions <conceptnet.models.Assertion>` that contain a
+    certain :class:`Feature <conceptnet.models.Feature>`.
     
     The parameter "{dir}feature" means that the URL should contain either
     `leftfeature/` or `rightfeature/`, depending on what form of feature
-    you are looking for. See the :class:`Feature <csc.conceptnet.models.Feature>`
+    you are looking for. See the :class:`Feature <conceptnet.models.Feature>`
     documentation for more explanation.
     
     As with other queries that return a
     list, this returns 20 results by default, but you may ask for up to 100
     by changing the value of *limit*.
     
-    Implemented by: :class:`csc.webapi.FeatureQueryHandler`
+    Implemented by: :class:`conceptnet.webapi.FeatureQueryHandler`
 
     
     
@@ -1238,7 +1238,7 @@ RatedObjectHandler
     * `activity`: a string identifying what activity or application this
       request is coming from.
     
-    Implemented by: :class:`csc.webapi.RatedObjectHandler`
+    Implemented by: :class:`conceptnet.webapi.RatedObjectHandler`
 
     
     

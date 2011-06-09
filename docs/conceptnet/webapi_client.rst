@@ -24,7 +24,7 @@ operations on this data, such as looking up assertions given a concept.
 Looking up information
 ----------------------
 
-.. module:: csc.webapi.rest_client
+.. module:: conceptnet.webapi.rest_client
 
 .. autofunction:: lookup
 .. autofunction:: lookup_concept_raw
