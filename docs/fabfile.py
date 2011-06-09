@@ -26,12 +26,6 @@ def git_dance():
     local('git pull origin master', capture=False)
     local('git push origin master', capture=False)
 
-def metapush():
-    with cd('~/mmp/omcs'):
-        local('git pull')
-    with cd('~/mmp'):
-        git_dance()
-
 def build_docs():
     local('make html', capture=False)
 
