@@ -52,9 +52,9 @@ About this repository
 
 This is the top-level project for Open Mind Common Sense. All of the
 actual code is in submodules. To check out or update its contents, run
-`./update` (requires a recent version of git). To install everything,
-decide if you want the equivalent of `python setup.py develop` or
-`python setup.py install`, and run one of `./develop` or `./install`.
+``./update`` (requires a recent version of git). To install everything,
+decide if you want the equivalent of ``python setup.py develop`` or
+``python setup.py install``, and run one of ``./develop`` or ``./install``.
 
 The git submodule system is a bit strange in that it checks out
 commits instead of branches. This means checkouts start in
@@ -68,4 +68,4 @@ If not, at least make a branch for your own work first::
   git checkout -b universal_semantics
 
 Alternatively, you can install the submodules into your Python environment 
-using ``pip``. See `requirements.txt` or `devel_requirements.txt`.
+using ``pip``. See ``requirements.txt`` or ``devel_requirements.txt``.
