@@ -1,6 +1,6 @@
 The ``ordered_set`` module
 ==========================
 
-.. automodule:: csc.divisi.ordered_set
+.. automodule::csc_utils.ordered_set
   :members: OrderedSet, IdentitySet
 
