@@ -18,3 +18,9 @@ Commonsense Computing Documentation
    luminoso/index
    luminoso2/index
    divisi1/index
+
+Indices
+=======
+
+* :ref:`genindex`
+* :ref:`search`
