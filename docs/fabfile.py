@@ -1,6 +1,5 @@
 from __future__ import with_statement
 from fabric.api import *
-from fabric.contrib.project import rsync_project
 
 env.hosts = ['anemone.media.mit.edu']
 
@@ -14,7 +13,11 @@ def deploy():
 def update_server():
     # later, make this assemble things on the server side
     # this requires understanding how it's set up, though
-    rsync_project(local_dir='_build/html/', remote_dir='/srv/csc/cscweb/static/docs/')
+    #
+    # Not using some of the rsync_project options:
+    # -p, --perms                 preserve permissions
+    # -t, --times                 preserve times
+    local('rsync --del -hrvz _build/html/ %s:/srv/csc/cscweb/static/docs/' % env.host, capture=False)
 
 def push():
     build_docs()
