@@ -69,7 +69,7 @@ release = version
 exclude_patterns = ['_build']
 
 # The reST default role (used for this markup: `text`) to use for all documents.
-default_role = 'samp'
+default_role = 'literal'
 
 # If true, '()' will be appended to :func: etc. cross-reference text.
 #add_function_parentheses = True
@@ -98,7 +98,17 @@ html_theme = 'default'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {}
+html_theme_options = {
+    'footerbgcolor': '#012',
+    'relbarbgcolor': '#003870',
+    'sidebarbgcolor': '#054881',
+    'linkcolor': '#005a8c',
+    'headtextcolor': '#135',
+    'sidebarlinkcolor': '#def',
+    'codebgcolor': '#e7f0f7',
+    'headfont': 'Georgia, serif',
+    'bodyfont': 'Lucida Grande, Lucida Sans, sans-serif',
+    }
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
@@ -178,7 +188,7 @@ htmlhelp_basename = 'CommonsenseComputingdoc'
 #latex_font_size = '10pt'
 
 # Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title, author, document class [howto/manual]).
+# (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'CommonsenseComputing.tex', ur'Commonsense Computing Documentation',
    ur'Commonsense Computing Group', 'manual'),
@@ -205,29 +215,44 @@ latex_documents = [
 #latex_appendices = []
 
 # If false, no module index is generated.
-latex_use_modindex = False
+#latex_domain_indices = True
 
 
+# -- Options for manual page output --------------------------------------------
+
+# One entry per manual page. List of tuples
+# (source start file, name, description, authors, manual section).
+man_pages = [
+    ('index', 'commonsensecomputing', u'Commonsense Computing Documentation',
+     [u'Commonsense Computing Group'], 1)
+]
+# If true, show URL addresses after external links.
+#man_show_urls = False
+
+
+# -- Options for Texinfo output ------------------------------------------------
+
+# Grouping the document tree into Texinfo files. List of tuples
+# (source start file, target name, title, author,
+#  dir menu entry, description, category)
+texinfo_documents = [
+  ('index', 'CommonsenseComputing', u'Commonsense Computing Documentation', u'Commonsense Computing Group',
+   'CommonsenseComputing', 'One line description of project.', 'Miscellaneous'),
+]
+
+# Documents to append as an appendix to all manuals.
+#texinfo_appendices = []
+
+# If false, no module index is generated.
+#texinfo_domain_indices = True
+
+# How to display URL addresses: 'footnote', 'no', or 'inline'.
+#texinfo_show_urls = 'footnote'
+
+# -- Old config block ----
+# This stuff was here before. I'm not sure what it does.
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'http://docs.python.org/dev': None}
-jsmath_path = 'jsMath/easy/load.js'
 doctest_test_doctest_blocks = ''
 autoclass_content = "init"
-default_role = "literal"
 add_module_names = False
-
-
-# Theme
-# -----
-html_theme = "default"
-html_theme_options = {
-    'footerbgcolor': '#012',
-    'relbarbgcolor': '#003870',
-    'sidebarbgcolor': '#054881',
-    'linkcolor': '#005a8c',
-    'headtextcolor': '#135',
-    'sidebarlinkcolor': '#def',
-    'codebgcolor': '#e7f0f7',
-    'headfont': 'Georgia, serif',
-    'bodyfont': 'Lucida Grande, Lucida Sans, sans-serif',
-}
