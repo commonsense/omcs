@@ -1,5 +1,5 @@
 Recovered Divisi 1 documentation
-===============================
+================================
 
 Some of the documentation from Divisi 1 has not yet been ported; here
 it is for your perusal.
