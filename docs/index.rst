@@ -11,9 +11,9 @@ Commonsense Computing Documentation
    :maxdepth: 2
 
    install
-   csc-utils/index
    conceptnet/index
    divisi2/index
+   csc-utils/index
    developers/index
    luminoso/index
    luminoso2/index
