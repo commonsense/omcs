@@ -42,7 +42,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Commonsense Computing'
-copyright = u'2009, Commonsense Computing Group'
+copyright = u'2011, Commonsense Computing Group'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
