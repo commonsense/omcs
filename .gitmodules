@@ -17,3 +17,6 @@
 	path = simplenlp
 	url = git://github.com/commonsense/simplenlp.git
 
+[submodule "luminoso2"]
+	path = luminoso2
+	url = ../luminoso
