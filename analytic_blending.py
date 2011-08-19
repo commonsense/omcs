@@ -94,12 +94,13 @@ def check_nearby_concepts(N=20, seed=0):
     summed_vecs = [summed_u.row_named(word) for word in words]
     merged_vecs = [merged_u.row_named(word) for word in words]
 
+    def nearby_words(vecs, idx):
+        dots = [vecs[idx].dot(vec) for vec in vecs]
+        return [word for _, word in sorted(zip(dots, words), reverse=True)]
+        
     def print_proximity_to(idx):
-        summed_dots = [summed_vecs[idx].dot(vec) for vec in summed_vecs]
-        sorted_summed_words = [word for _, word in sorted(zip(summed_dots, words), reverse=True)]
-
-        merged_dots = [merged_vecs[idx].dot(vec) for vec in merged_vecs]
-        sorted_merged_words = [word for _, word in sorted(zip(merged_dots, words), reverse=True)]
+        sorted_summed_words = nearby_words(summed_vecs, idx)
+        sorted_merged_words = nearby_words(merged_vecs, idx)
 
         print 'Proximity to {}:'.format(words[idx])
         print 'summed: ' + ', '.join(sorted_summed_words[:10])
