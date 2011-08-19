@@ -1,6 +1,7 @@
 from joblib import Memory
 memory = Memory(cachedir='cache')
 
+import random
 import divisi2
 from csc_utils.ordered_set import OrderedSet
 from luminoso2.assoc_space import SVDSpace
@@ -46,6 +47,16 @@ def make_summed_space():
 @memory.cache
 def make_merged_space():
     return make_isa_space().merged_with(make_usedfor_space())
+
+def compare_svals():
+    summed_svals = make_summed_space().sigma
+    merged_svals = make_merged_space().sigma
+
+    from matplotlib import pyplot as plt
+    plt.plot(summed_svals)
+    plt.plot(merged_svals)
+    plt.legend('summed', 'merged')
+    plt.show()
     
 def plot_singular_vector_alignment():
     u_dot_u = make_summed_space().u.T.dot(make_merged_space().u)
@@ -74,30 +85,26 @@ def check_concept_angles():
             summed_vecs[0].dot(summed_vecs[1]),
             merged_vecs[0].dot(merged_vecs[1]))
 
-def check_nearby_concepts():
-    N = 20
-    seed = 0
-    
-    import random
+def check_nearby_concepts(N=20, seed=0):
+    summed_u = make_summed_space().u.normalize_rows(offset=.001)
+    merged_u = make_merged_space().u.normalize_rows(offset=.001)
+
     r = random.Random(seed)
-
-    sa = make_summed_space()
-    ma = make_merged_space()
-
-    words = r.sample(sa.u.row_labels, N)
-    summed_vecs = [sa.u.row_named(word) for word in words]
-    merged_vecs = [ma.u.row_named(word) for word in words]
+    words = r.sample(summed_u.row_labels, N)
+    summed_vecs = [summed_u.row_named(word) for word in words]
+    merged_vecs = [merged_u.row_named(word) for word in words]
 
     def print_proximity_to(idx):
         summed_dots = [summed_vecs[idx].dot(vec) for vec in summed_vecs]
-        sorted_summed_words = [word for _, word in sorted(zip(summed_dots, words))]
+        sorted_summed_words = [word for _, word in sorted(zip(summed_dots, words), reverse=True)]
 
         merged_dots = [merged_vecs[idx].dot(vec) for vec in merged_vecs]
-        sorted_merged_words = [word for _, word in sorted(zip(merged_dots, words))]
+        sorted_merged_words = [word for _, word in sorted(zip(merged_dots, words), reverse=True)]
 
         print 'Proximity to {}:'.format(words[idx])
-        print 'summed: ' + ', '.join(sorted_summed_words)
-        print 'merged: ' + ', '.join(sorted_merged_words)
+        print 'summed: ' + ', '.join(sorted_summed_words[:10])
+        print 'merged: ' + ', '.join(sorted_merged_words[:10])
+        print
 
     print_proximity_to(0)
     print_proximity_to(1)
