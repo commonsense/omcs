@@ -2,9 +2,9 @@ import numpy as np
 import numpy.linalg as LA
 
 # Dimensions
-n = 100
-c = 1000
-m = int(1e3) # dimension of the sign matrix
+n = 10000
+c = 100
+m = int(10) # dimension of the sign matrix
 
 # Input matrices
 A = np.random.standard_normal((n, c))
@@ -27,6 +27,7 @@ err = LA.norm(res - ref) / (norm_A * norm_B)
 print 'Matrix product err', err
 
 # Streaming matrix product
+print 'Verifying streaming sketch...'
 streaming_StA = np.zeros((m, c))
 streaming_StB = np.zeros((m, c))
 for row in range(n):
@@ -39,8 +40,27 @@ for row in range(n):
 
 assert np.allclose(streaming_StA, StA)
 assert np.allclose(streaming_StB, StB)
+print 'All good.'
 
-# Linear Regression
+# Linear Regression: argmin_X ||AX-B||
+Ainv_ref = LA.pinv(A)
+Xref = np.dot(Ainv_ref, B)
+err_ref = LA.norm(np.dot(A, Xref) - B)
+print 'Linear regression reference err:', err_ref
 
-# Low-Rank Approximation
+StA_inv = LA.pinv(StA)
+Xapprox = np.dot(StA_inv, StB)
+err_approx = LA.norm(np.dot(A, Xapprox) - B)
+print 'Approx:', err_approx
 
+# Low-Rank Approximation: 2-pass
+print 'Computing orthonormal basis G^T for rowspace of StA...'
+u, sigma, G = LA.svd(StA) # yeah, abuse of notation...
+
+# dimensionality:
+#  A: n-by-c
+#  StA: m-by-c
+#  G: m-by-c
+
+# non-streaming version for the moment
+AGt = np.dot(A, G.T)
