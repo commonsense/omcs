@@ -1,4 +1,5 @@
 import numpy as np
+import numpy.linalg as LA
 
 # Dimensions
 n = 100
@@ -9,8 +10,8 @@ m = int(1e3) # dimension of the sign matrix
 A = np.random.standard_normal((n, c))
 B = np.random.standard_normal((n, c))
 
-norm_A = np.linalg.norm(A)
-norm_B = np.linalg.norm(B)
+norm_A = LA.norm(A)
+norm_B = LA.norm(B)
 print 'norm of A', norm_A, 'B', norm_B
 
 # sign (Rademacher) matrices
@@ -22,7 +23,7 @@ StA = np.dot(S.T, A)
 StB = np.dot(S.T, B)
 res = np.dot(StA.T, StB) / m
 ref = np.dot(A.T, B)
-err = np.linalg.norm(res - ref) / (norm_A * norm_B)
+err = LA.norm(res - ref) / (norm_A * norm_B)
 print 'Matrix product err', err
 
 # Streaming matrix product
