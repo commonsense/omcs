@@ -26,21 +26,21 @@ ref = np.dot(A.T, B)
 err = LA.norm(res - ref) / (norm_A * norm_B)
 print 'Matrix product err', err
 
-# Streaming matrix product
-print 'Verifying streaming sketch...'
-streaming_StA = np.zeros((m, c))
-streaming_StB = np.zeros((m, c))
-for row in range(n):
-    for col in range(c):
-        # Apply the update of A[row, col] from 0 to its actual value.
-        streaming_StA[:, col] += S[row, :] * A[row, col]
+# # Streaming matrix product
+# print 'Verifying streaming sketch...'
+# streaming_StA = np.zeros((m, c))
+# streaming_StB = np.zeros((m, c))
+# for row in range(n):
+#     for col in range(c):
+#         # Apply the update of A[row, col] from 0 to its actual value.
+#         streaming_StA[:, col] += S[row, :] * A[row, col]
 
-        # Apply the update of B[row, col] from 0 to its actual value.
-        streaming_StB[:, col] += S[row, :] * B[row, col]
+#         # Apply the update of B[row, col] from 0 to its actual value.
+#         streaming_StB[:, col] += S[row, :] * B[row, col]
 
-assert np.allclose(streaming_StA, StA)
-assert np.allclose(streaming_StB, StB)
-print 'All good.'
+# assert np.allclose(streaming_StA, StA)
+# assert np.allclose(streaming_StB, StB)
+# print 'All good.'
 
 # Linear Regression: argmin_X ||AX-B||
 Ainv_ref = LA.pinv(A)
