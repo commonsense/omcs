@@ -22,7 +22,6 @@ Contents:
    conceptnet/index
    csc-utils/index
    developers/index
-   luminoso2/index
    divisi1/index
 
 Indices
