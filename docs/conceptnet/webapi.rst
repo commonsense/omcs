@@ -1286,4 +1286,55 @@ RatedObjectHandler
           vote: 1
     
     
+SimilarityHandler
+.......................................
 
+.. function:: /api/{lang}/similar_to/{termlist}/limit:{limit}/
+
+    
+    A GET request to this URL will take in a comma-separated list of concept
+    names, and return a list of concepts that are the most similar.
+    The concept names can have underscores that are translated
+    to spaces, and @ signs that indicate a weight. For example:
+
+        /api/en/similar_to/dog,cat,mouse@0.5,guinea_pig/limit:10
+    
+    The first argument is the language, and the second argument is the list
+    of terms. The language must currently be 'en'.
+    
+    Implemented by: :class:`conceptnet.webapi.SimilarityHandler`
+
+    
+    
+    **Example:** `GET /api/en/similar_to/dog,cat,mouse@0.5,guinea_pig/limit:10/query.yaml <http://openmind.media.mit.edu/api/en/similar_to/dog,cat,mouse@0.5,guinea_pig/limit:5/query.yaml>`_ ::
+    
+        - concept:
+            canonical_name: a cat
+            language: {id: en}
+            resource_uri: /api/en/concept/cat/
+            text: cat
+          score: 3.4199635478331318
+        - concept:
+            canonical_name: a dog
+            language: {id: en}
+            resource_uri: /api/en/concept/dog/
+            text: dog
+          score: 3.381817053975718
+        - concept:
+            canonical_name: a tabby cat
+            language: {id: en}
+            resource_uri: /api/en/concept/tabby%20cat/
+            text: tabby cat
+          score: 3.3789687864846085
+        - concept:
+            canonical_name: a kitten
+            language: {id: en}
+            resource_uri: /api/en/concept/kitten/
+            text: kitten
+          score: 3.3779517430787402
+        - concept:
+            canonical_name: Guinea pigs
+            language: {id: en}
+            resource_uri: /api/en/concept/guinea%20pig/
+            text: guinea pig
+          score: 3.3541297786211377
