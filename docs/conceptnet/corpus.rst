@@ -14,7 +14,7 @@ The most important database models described here are :class:`Language` and
 :class:`DependencyParse` classes that are used in some applications that work
 with raw Open Mind data.
 
-.. automodule:: csc.corpus.models
+.. automodule:: conceptnet.corpus.models
 
 Languages
 ---------

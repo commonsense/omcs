@@ -92,11 +92,11 @@ matches what you wrote.
 
 You can turn this into a `nose` test by dropping a couple of lines of code into
 a `test.py` file. Here's an example of running the doctests for the
-:mod:`csc.nl.euro` module::
+:mod:`simplenlp.euro` module::
 
-    from csc.util import run_doctests
-    import csc.nl.euro
-    run_doctests(csc.nl.euro)
+    from csc_utils import run_doctests
+    import simplenlp.euro
+    run_doctests(simplenlp.euro)
 
 This even allows you to define a function called :meth:`doctest_globals` that
 returns the global environment that other doctests should run in. This is

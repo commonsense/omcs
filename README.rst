@@ -24,31 +24,48 @@ Subprojects
 OMCS includes the following subprojects, among others:
 
 - conceptnet_: A semantic network of the knowledge we have collected.
-- divisi_: A library for learning from dimensionality reduction of a semantic network.
-- divisi2_: A new version of Divisi that integrates with NumPy and PySparse.
+- simplenlp_: Lightweight natural language processing tools.
+- divisi2_: A library for learning from dimensionality reduction of a semantic network.
 - csc-utils_: Useful tools shared between our projects.
-- LexiconLinking_: A project to learn a lexicon of verb classes and the nouns that they relate to.
 - openmind-commons_: The code of our Web site for browsing and collecting knowledge.
 
 .. _conceptnet: http://github.com/commonsense/conceptnet
+.. _simplenlp: http://github.com/commonsense/simplenlp
 .. _csc-utils: http://github.com/commonsense/csc-utils
-.. _divisi: http://github.com/commonsense/divisi
 .. _divisi2: http://github.com/commonsense/divisi2
-.. _LexiconLinking: http://github.com/commonsense/LexiconLinking
 .. _openmind-commons: http://github.com/rspeer/openmind-commons
+
+Non-core subprojects
+--------------------
+
+The following projects are also in the OMCS namespace but are not
+currently managed as subprojects:
+
+- divisi_: The old version of Divisi, no longer supported.
+- LexiconLinking_: A project to learn a lexicon of verb classes and the nouns that they relate to.
+
+.. _divisi: http://github.com/commonsense/divisi
+.. _LexiconLinking: http://github.com/commonsense/LexiconLinking
 
 About this repository
 =====================
 
-This is the top-level project for Open Mind Common Sense. All of the actual
-code is in submodules. To check out its contents, run::
+This is the top-level project for Open Mind Common Sense. All of the
+actual code is in submodules. To check out or update its contents, run
+``./update`` (requires a recent version of git). To install everything,
+decide if you want the equivalent of ``python setup.py develop`` or
+``python setup.py install``, and run one of ``./develop`` or ``./install``.
 
-  git submodule init
-  git submodule update
+The git submodule system is a bit strange in that it checks out
+commits instead of branches. This means checkouts start in
+"disconnected head" mode, which makes it too easy to lose work. You
+may want to do something like the following::
 
-Alternatively, you can install the submodules into your Python environment 
-using ``pip``. See `requirements.txt` or `devel_requirements.txt`.
+    git submodule foreach git checkout master
 
-We highly recommend that if you make changes to the code of one module, you first check out that module separately, or you may accidentally lose work. (If you're afraid you lost work already, don't worry; there are usually ways to recover.) At least make a branch for your own work first::
+If not, at least make a branch for your own work first::
 
   git checkout -b universal_semantics
+
+Alternatively, you can install the submodules into your Python environment 
+using ``pip``. See ``requirements.txt`` or ``devel_requirements.txt``.

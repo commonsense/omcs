@@ -1,5 +1,0 @@
-.. _others:
-
-Other modules
-=============
-

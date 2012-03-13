@@ -277,7 +277,7 @@ Finally:
 
 Test stuff
 ..........
-Start up your ipython. Try importing ``csc.conceptnet.models`` and
+Start up your ipython. Try importing ``conceptnet.models`` and
 ``csc.divisi2``. Run some of the code in the "Examples" sections. If it works,
 you're all set.
 
